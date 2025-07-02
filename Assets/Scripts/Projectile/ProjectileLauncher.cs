@@ -22,11 +22,17 @@ public class ProjectileLauncher : MonoBehaviour
             else
                 lineRenderer.enabled = false;
         }
-        if (Input.GetMouseButtonDown(0))
-        {
-            var _projectile = Instantiate(projectile, launchPoint.position, launchPoint.rotation);
-            _projectile.GetComponent<Rigidbody>().linearVelocity = launchSpeed * launchPoint.up;
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    var _projectile = Instantiate(projectile, launchPoint.position, launchPoint.rotation);
+        //    _projectile.GetComponent<Rigidbody>().linearVelocity = launchSpeed * launchPoint.up;
+        //}
+    }
+
+    public void ThrowStone()
+    {
+        var _projectile = Instantiate(projectile, launchPoint.position, launchPoint.rotation);
+        _projectile.GetComponent<Rigidbody>().linearVelocity = launchSpeed * launchPoint.up;
     }
  
     void DrawTrajectory()

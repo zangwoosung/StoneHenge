@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Button text="Button" name="ThrowBtn" />
+    <ui:Slider label="Slider" value="45" high-value="90" name="AngleSlider" low-value="-90" />
+</ui:UXML>
