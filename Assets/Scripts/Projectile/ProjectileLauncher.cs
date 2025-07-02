@@ -1,6 +1,16 @@
+// 1. 화면 구성 UI Tool Kit
+// 2. 바이딩.    Mass, speed, Angle ,  
+// 3. 버튼 클릭 순간.  
 using UnityEngine;
+
+// 1. 탄착 완료 이벤트
+// 2. UI활성화. 
+
+
+
 public class ProjectileLauncher : MonoBehaviour
 {
+
     public Transform launchPoint;
     public GameObject projectile;
     public float launchSpeed = 10f;
@@ -27,6 +37,12 @@ public class ProjectileLauncher : MonoBehaviour
             var _projectile = Instantiate(projectile, launchPoint.position, launchPoint.rotation);
             _projectile.GetComponent<Rigidbody>().linearVelocity = launchSpeed * launchPoint.up;
         }
+    }
+
+    public void ThrowStone()
+    {
+        var _projectile = Instantiate(projectile, launchPoint.position, launchPoint.rotation);
+        _projectile.GetComponent<Rigidbody>().linearVelocity = launchSpeed * launchPoint.up;
     }
  
     void DrawTrajectory()
