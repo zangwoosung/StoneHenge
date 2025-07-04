@@ -7,21 +7,27 @@ public class MainUI : MonoBehaviour
     [SerializeField] ProjectileLauncher myProjectileLauncher;
     [SerializeField] Transform launchingPad;
     VisualElement root;
+    VisualElement head;
   
 
 
     Button throwBtn;
     Slider angleSlider;
+    Slider speedSlider;
+    Slider massSlider;
 
     
 
     private void Awake()
     {
         root = myUI.rootVisualElement;
+        head = root.Q<VisualElement>("Head");
 
-       
-        throwBtn = root.Q<Button>("ThrowBtn");
-        angleSlider = root.Q<Slider>("AngleSlider");
+
+        throwBtn = head.Q<Button>("ThrowBtn");
+        angleSlider = head.Q<Slider>("AngleSlider");
+        speedSlider = head.Q<Slider>("SpeedSlider");
+        massSlider = head.Q<Slider>("MassSlider");
 
             
         throwBtn.clicked += OnNextButtonClick;
@@ -30,12 +36,23 @@ public class MainUI : MonoBehaviour
 
         angleSlider.RegisterValueChangedCallback(evt =>
         {
-            Debug.Log("Slider value changed to: " + evt.newValue);
-
             float angle = evt.newValue;
             launchingPad.transform.rotation = Quaternion.Euler(0, 0,  angle);
-            
-            // You can add your logic here
+           
+        });
+
+        speedSlider.RegisterValueChangedCallback(evt =>
+        {
+            Debug.Log(" value" + evt.newValue);
+            //float angle = evt.newValue;
+           // launchingPad.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        });
+
+        massSlider.RegisterValueChangedCallback(evt =>
+        {
+            Debug.Log(" value" + evt.newValue);
+
         });
 
 

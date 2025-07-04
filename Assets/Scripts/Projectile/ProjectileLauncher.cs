@@ -4,7 +4,7 @@ public class ProjectileLauncher : MonoBehaviour
     public Transform launchPoint;
     public GameObject projectile;
     public float launchSpeed = 10f;
- 
+    public ProjectileSO projectileSO;
     [Header("****Trajectory Display****")]
     public LineRenderer lineRenderer;
     public int linePoints = 175;
@@ -21,24 +21,23 @@ public class ProjectileLauncher : MonoBehaviour
             }
             else
                 lineRenderer.enabled = false;
-        }
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    var _projectile = Instantiate(projectile, launchPoint.position, launchPoint.rotation);
-        //    _projectile.GetComponent<Rigidbody>().linearVelocity = launchSpeed * launchPoint.up;
-        //}
+        }      
     }
 
     public void ThrowStone()
     {
-        var _projectile = Instantiate(projectile, launchPoint.position, launchPoint.rotation);
-        _projectile.GetComponent<Rigidbody>().linearVelocity = launchSpeed * launchPoint.up;
+        Quaternion rot = launchPoint.rotation;
+        rot.z = projectileSO.angle;
+        var _projectile = Instantiate(projectile, launchPoint.position, rot);
+        _projectile.GetComponent<Rigidbody>().linearVelocity = projectileSO.speed * launchPoint.up;
     }
  
     void DrawTrajectory()
     {
         Vector3 origin = launchPoint.position;
-        Vector3 startVelocity = launchSpeed * launchPoint.up;
+        Vector3 startVelocity = projectileSO.speed * launchPoint.up;
+
+
         lineRenderer.positionCount = linePoints;
         float time = 0;
         for (int i = 0; i < linePoints; i++)
