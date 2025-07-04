@@ -3,6 +3,15 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+// 과제 :
+//    Tag   Target,  FlyingStone                                             한 주기 
+//    한번 던지면   던지기 버튼 잠그기
+//    넘어지면,  다시  생성 
+//    넘어짐을 판정
+//    넘어진 돌  후 / 던진 돌도 3초 후 제거   : 코루틴 
+//    새로 생기는 타켓 위치는  정해진 위치내에서 랜덤. 
+//    던지기 버튼 풀기. 
+
 public enum StoneType
 {
     Low,
@@ -22,7 +31,6 @@ public class TargetStone : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Stone"))
         {
-            //Destroy(GetComponent<Rigidbody>());
             OnHitByProjectile?.Invoke(stoneType);
             isHit = true;
         }
@@ -35,7 +43,6 @@ public class TargetStone : MonoBehaviour
             isHit = false;
             if (Math.Abs(transform.rotation.z) < 1)
             {
-
                 StartCoroutine(StoneKnockDown());
             }
         }
@@ -43,15 +50,14 @@ public class TargetStone : MonoBehaviour
 
     IEnumerator StoneKnockDown()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         renderer.enabled = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         renderer.enabled = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         renderer.enabled = false;
-
         OnKnockDownEvent?.Invoke(stoneType);
-        Destroy(gameObject);       
+        Destroy(gameObject);
 
     }
 

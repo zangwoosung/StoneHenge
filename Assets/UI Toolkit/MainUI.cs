@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.UIElements;
 public class MainUI : MonoBehaviour
@@ -8,15 +7,11 @@ public class MainUI : MonoBehaviour
     [SerializeField] Transform launchingPad;
     VisualElement root;
     VisualElement head;
-  
-
 
     Button throwBtn;
     Slider angleSlider;
     Slider speedSlider;
-    Slider massSlider;
-
-    
+    Slider massSlider;   
 
     private void Awake()
     {
@@ -30,7 +25,7 @@ public class MainUI : MonoBehaviour
         massSlider = head.Q<Slider>("MassSlider");
 
             
-        throwBtn.clicked += OnNextButtonClick;
+        throwBtn.clicked += OnThrowButtonClick;
         angleSlider.value = launchingPad.transform.rotation.z;
 
 
@@ -54,17 +49,27 @@ public class MainUI : MonoBehaviour
             Debug.Log(" value" + evt.newValue);
 
         });
-
-
     }
 
-    private void OnNextButtonClick()
+    private void OnThrowButtonClick()
     {
-        myProjectileLauncher.ThrowStone();  
+        myProjectileLauncher.ThrowStone();
+        LockButtonAndSlider();
     }
 
-   
-
-    
+    void LockButtonAndSlider()
+    {
+        throwBtn.SetEnabled(false);
+        angleSlider.SetEnabled(false);
+        speedSlider.SetEnabled(false);
+        massSlider.SetEnabled(false);
+    }
+    void UnLockButtonAndSlider()
+    {
+        throwBtn.SetEnabled(true);
+        angleSlider.SetEnabled(true);
+        speedSlider.SetEnabled(true);
+        massSlider.SetEnabled(true);
+    }
 
 }

@@ -42,7 +42,7 @@ public class ProjectileLauncher : MonoBehaviour
         float time = 0;
         for (int i = 0; i < linePoints; i++)
         {
-            // s = u*t + 1/2*g*t*t
+         
             var x = (startVelocity.x * time) + (Physics.gravity.x / 2 * time * time);
             var y = (startVelocity.y * time) + (Physics.gravity.y / 2 * time * time);
             Vector3 point = new Vector3(x, y, 0);
