@@ -10,6 +10,7 @@ public class MainUI : MonoBehaviour
 
     Button throwBtn;
     Slider angleSlider;
+    Slider angleYSlider;
     Slider speedSlider;
     Slider massSlider;   
 
@@ -21,12 +22,13 @@ public class MainUI : MonoBehaviour
 
         throwBtn = head.Q<Button>("ThrowBtn");
         angleSlider = head.Q<Slider>("AngleSlider");
+        angleYSlider = head.Q<Slider>("AngleYSlider");
         speedSlider = head.Q<Slider>("SpeedSlider");
         massSlider = head.Q<Slider>("MassSlider");
 
             
         throwBtn.clicked += OnThrowButtonClick;
-        angleSlider.value = launchingPad.transform.rotation.z;
+       
 
 
         angleSlider.RegisterValueChangedCallback(evt =>
@@ -34,6 +36,13 @@ public class MainUI : MonoBehaviour
             float angle = evt.newValue;
             launchingPad.transform.rotation = Quaternion.Euler(0, 0,  angle);
            
+        });
+        angleYSlider.RegisterValueChangedCallback(evt =>
+        {
+            // Rotate Y to a specific angle (e.g., 45 degrees)
+            launchingPad.transform.rotation = Quaternion.Euler(launchingPad.transform.rotation.eulerAngles.x, evt.newValue, launchingPad.transform.rotation.eulerAngles.z);
+
+
         });
 
         speedSlider.RegisterValueChangedCallback(evt =>
@@ -54,7 +63,7 @@ public class MainUI : MonoBehaviour
     private void OnThrowButtonClick()
     {
         myProjectileLauncher.ThrowStone();
-        LockButtonAndSlider();
+        //LockButtonAndSlider();
     }
 
     void LockButtonAndSlider()

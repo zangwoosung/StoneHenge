@@ -30,6 +30,8 @@ public class ProjectileLauncher : MonoBehaviour
         rot.z = projectileSO.angle;
         var _projectile = Instantiate(projectile, launchPoint.position, rot);
         _projectile.GetComponent<Rigidbody>().linearVelocity = projectileSO.speed * launchPoint.up;
+        _projectile.GetComponent<Rigidbody>().mass = projectileSO.mass;
+
     }
  
     void DrawTrajectory()

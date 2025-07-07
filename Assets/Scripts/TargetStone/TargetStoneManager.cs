@@ -4,6 +4,7 @@ using UnityEngine;
 public class TargetStoneManager : MonoBehaviour
 {
     public GameObject stonePrefab;
+   
     Vector3 pos;
 
 

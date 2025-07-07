@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6131137452388519274}
   - component: {fileID: 7695976215389880061}
   - component: {fileID: 3485810705674298399}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TargetStone
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -124,6 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderer: {fileID: 5804164083507292227}
   stoneType: 0
+  fadeDuration: 2
+  objRenderer: {fileID: 5804164083507292227}
 --- !u!54 &3485810705674298399
 Rigidbody:
   m_ObjectHideFlags: 0

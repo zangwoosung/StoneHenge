@@ -1,19 +1,24 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:VisualElement name="Head" data-source="project://database/Assets/Scripts/SO/ProjectileSO.asset?fileID=11400000&amp;guid=7714020f1b4c9cf44b039565b8352531&amp;type=2#ProjectileSO" style="flex-grow: 1;">
         <ui:Button text="Throw" name="ThrowBtn" />
-        <ui:Slider label="Angle" value="45" high-value="90" name="AngleSlider" low-value="-90">
+        <ui:Slider label="Angle" value="-45" high-value="90" name="AngleSlider" low-value="-90">
             <Bindings>
-                <ui:DataBinding property="value" data-source-path="angle" binding-mode="ToSource" />
+                <ui:DataBinding property="value" data-source-path="angle" binding-mode="TwoWay" />
             </Bindings>
         </ui:Slider>
         <ui:Slider label="Speed" value="45" high-value="20" name="SpeedSlider" low-value="1">
             <Bindings>
-                <ui:DataBinding property="value" data-source-path="speed" binding-mode="ToSource" />
+                <ui:DataBinding property="value" data-source-path="speed" binding-mode="TwoWay" />
             </Bindings>
         </ui:Slider>
         <ui:Slider label="Mass" value="45" high-value="10" name="MassSlider" low-value="1">
             <Bindings>
-                <ui:DataBinding property="value" data-source-path="mass" binding-mode="ToSource" />
+                <ui:DataBinding property="value" data-source-path="mass" binding-mode="TwoWay" />
+            </Bindings>
+        </ui:Slider>
+        <ui:Slider label="Y Angle" value="45" high-value="45" name="AngleYSlider" low-value="-45">
+            <Bindings>
+                <ui:DataBinding property="value" data-source-path="angleY" binding-mode="TwoWay" />
             </Bindings>
         </ui:Slider>
     </ui:VisualElement>
