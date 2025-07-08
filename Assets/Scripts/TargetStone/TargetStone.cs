@@ -28,6 +28,7 @@ public class TargetStone : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Stone"))
         {
+            Debug.Log("hit");
             OnHitByProjectile?.Invoke(stoneType);
             isHit = true;
         }
@@ -36,11 +37,11 @@ public class TargetStone : MonoBehaviour
     void Update()
     {
         if (isHit)
-        {          
-
+        {
+            Debug.Log("hit Mathf.Abs(transform.eulerAngles.z " + Mathf.Abs(transform.eulerAngles.z));
             if (Mathf.Abs(transform.eulerAngles.z) == 270 || Mathf.Abs(transform.eulerAngles.z) == 90)
             {
-                OnKnockDownEvent?.Invoke(stoneType);
+                Debug.Log("hit in update");               
                 StartCoroutine(FadeOutObject());
                 isHit = false;
             }
@@ -61,7 +62,7 @@ public class TargetStone : MonoBehaviour
         Color finalColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
         objRenderer.material.color = finalColor;
         yield return new WaitForSeconds(1);
-       
+        OnKnockDownEvent?.Invoke(stoneType);
         Destroy(gameObject);
     }
 

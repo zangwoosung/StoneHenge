@@ -1,5 +1,11 @@
 using UnityEngine;
 
+public enum ItemTag
+{
+    Zombi,
+    FlyingStong,
+    TargetStone
+}
 public class GameManager : MonoBehaviour
 {
     public ProjectileSO projectileSO;
@@ -23,8 +29,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         targetStoneManager.CreateOneTargeStone();
-        zombiSpawner.SpawnZombi();
-        
+        zombiSpawner.SpawnZombi();       
 
     }
 

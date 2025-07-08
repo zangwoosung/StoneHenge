@@ -1527,7 +1527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 3981851030982896551, guid: be2715a91c1c7c9438f92aab044f0b42, type: 3}
-  cubeCount: 200
+  cubeCount: 20
   spacing: 2
   startPointd: {fileID: 167994023}
   radius: 2
