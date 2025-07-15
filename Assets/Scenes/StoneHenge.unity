@@ -435,7 +435,7 @@ Transform:
   m_GameObject: {fileID: 167994022}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 32.6, y: 1.15, z: -22.8}
+  m_LocalPosition: {x: 32.6, y: 1, z: -22.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -458,7 +458,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -469,7 +469,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167994022}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -485,7 +485,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 045c55c503b7fce48b2a4b3e8e8a2294, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -941,6 +941,7 @@ Transform:
   - {fileID: 726809544}
   - {fileID: 612391968}
   - {fileID: 167994023}
+  - {fileID: 2016146781}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &930342503
@@ -1164,9 +1165,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98109ed0d9d3e444a66282cb67200a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myUI: {fileID: 1568360339}
+  _document: {fileID: 1568360339}
+  _styleSheet: {fileID: 7433441132597879392, guid: 7a087892b06acc640ab260a60c3f22a3, type: 3}
   myProjectileLauncher: {fileID: 930342506}
   launchingPad: {fileID: 612391968}
+  projectileSO: {fileID: 11400000, guid: 7714020f1b4c9cf44b039565b8352531, type: 2}
 --- !u!114 &1568360339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1482,6 +1485,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2016146780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2016146781}
+  m_Layer: 0
+  m_Name: ZombiContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2016146781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016146780}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 753287589}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2117058143
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,14 +1560,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49d9bd072ffdbda4f976dd5caf6dc9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 3981851030982896551, guid: be2715a91c1c7c9438f92aab044f0b42, type: 3}
-  cubeCount: 20
+  zombiPrefab: {fileID: 3981851030982896551, guid: be2715a91c1c7c9438f92aab044f0b42, type: 3}
+  zombiCount: 20
   spacing: 2
-  startPointd: {fileID: 167994023}
+  startPoint: {fileID: 167994023}
   radius: 2
   targetLayer:
     serializedVersion: 2
     m_Bits: 8
+  zombiTag: 0
+  targetTag: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

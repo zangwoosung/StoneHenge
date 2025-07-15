@@ -21,15 +21,20 @@ public class GravityComponentAuthoring : MonoBehaviour
 
         public override void Bake(GravityComponentAuthoring authoring)
         {
-            Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+           
 
-            AddComponent(entity, new GravityComponent()
-            {
 
-                Weight = authoring.Weight,
-                Velocity = authoring.Velocity,
-                TargetPos = authoring.Player.transform.position //TargetPos
-            });
+                Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+
+                AddComponent(entity, new GravityComponent()
+                {
+
+                    Weight = authoring.Weight,
+                    Velocity = authoring.Velocity,
+                    TargetPos = authoring.Player.transform.position //TargetPos
+                });
+
+            
 
         }
 

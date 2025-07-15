@@ -1,0 +1,205 @@
+/* Global settings */
+:root {
+    --primary-color: #3b82f6;
+    --secondary-color: #1e40af;
+    --background-color:white;
+    --text-color: #ffffff;
+    --background-color: #1f2937;
+    --hover-color: #2563eb;
+    --font-size: 14px;
+      border-width:1px;
+      border-color:white; 
+      
+}
+
+/* General container */
+.container {
+    width: 30%;
+    height: 100%;
+    flex-direction: column;
+    padding: 10px;  
+    position: absolute;
+    margin-left:5%;
+}
+
+.full-box{
+    flex-direction: column;    
+    background-color: grey;
+    width: 100%;
+    height: 100%;   
+    position: absolute;
+    align-items: center; 
+    justify-content: center;
+}
+.popup-container {
+    background-color : grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    height: 100%;
+    width: 90%;
+    padding: 30px;
+    font-size: 20px;
+}
+/* Initial hidden state */
+.fade-hidden {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+/* Visible state */
+.fade-visible {
+    opacity: 1;
+}
+/* Base style with transition */
+.fade {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: .5s;
+    transition-timing-function: ease-in-out;
+}
+
+/* When this class is added, the element fades in */
+.fade-in {
+    opacity: 1;
+}
+
+.title-box{   
+   
+   border-width:0px;
+    border-color:white;
+    border-radius: 4px;
+    flex-direction:row;
+    width:100%;
+    height:10%;
+    flex-direction: row;
+    justify-content: flex-end; /* Align children to the right */
+    padding-right: 10px; /* Optional spacing */
+    padding-left: 10px; /* Optional spacing */
+    align-items: center;
+    
+}
+.head-box{
+
+    border-width:0px;
+    border-color:white;
+    border-radius: 4px;
+    width:100%;
+    height:20%;
+    flex-direction: row;
+    justify-content: flex-end; /* Align children to the right */
+    padding-right: 10px; /* Optional spacing */
+
+}
+.body-box{
+    border-width:0px;
+    border-color:white;
+    border-radius: 4px;
+    flex-direction: column;  /* or row, depending on your layout */
+    align-items: center; 
+    display: flex;
+    justify-content: space-evenly;
+    width:100%;
+    height:80%;
+    
+}
+.foot-box{
+    border-width:1px;
+    border-color:white;
+    border-radius: 4px;
+    background-color: grey;   
+    width:100%;
+    height:10%; 
+    display: flex;
+    flex-direction: row;         /* Arrange children horizontally */
+    justify-content: flex-end;   /* Push children to the right */
+    gap: 10px;                   /* Optional: space between buttons */
+    padding: 10px
+
+}
+/* Buttons */
+.button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-size: var(--font-size);
+    padding: 8px 12px;
+    border-radius: 4px;
+    width: 50px; /* Set a width if needed */
+    height: 50px; /* Set a width if needed */
+    unity-font-style: bold;
+    unity-text-align: middle-center;  
+     
+    transition-property: scale, background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    scale: 1 1;
+}
+
+.button:hover {    
+    background-color: #6BAAF0;
+    scale: 1.08 1.08;
+    cursor: pointer;
+}
+.button-container {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 10px;
+}
+/* Root slider styling */
+.my-slider {
+    width: 300px;
+    height: 20px;
+    margin: 10px;
+    flex-direction: row;
+    align-items: center;
+}
+
+/* Track styling */
+.my-slider .unity-slider__track {
+    background-color: #444;
+    height: 6px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+/* Track fill styling */
+.my-slider .unity-slider__dragger {
+    background-color: #00c6ff;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    box-shadow: 0 0 6px rgba(0, 198, 255, 0.6);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.my-slider:hover .unity-slider__track {
+    background-color: #666;
+}
+
+.my-slider:hover .unity-slider__dragger {
+    background-color: #00e6ff;
+    box-shadow: 0 0 10px rgba(0, 230, 255, 0.8);
+}
+
+/* Focus effect */
+.my-slider:focus-within .unity-slider__dragger {
+    outline: 2px solid #00e6ff;
+}
+
+/* Optional label styling */
+.slider-label {
+    font-size: 16px;
+    color: white;
+    margin-top: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+

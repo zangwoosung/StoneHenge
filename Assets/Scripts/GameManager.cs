@@ -18,10 +18,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        projectileSO.angle = -45;
-        projectileSO.speed = 0;
-        projectileSO.mass = 1;
-        projectileSO.angleY = 0;
+       
         Debug.Log("game Manager");
 
     }

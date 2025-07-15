@@ -10,6 +10,7 @@ public class ProjectileLauncher : MonoBehaviour
     public int linePoints = 175;
     public float timeIntervalInPoints = 0.01f;
  
+    bool isDrawing=false;
     void Update()
     {
         if(lineRenderer != null)
@@ -27,7 +28,9 @@ public class ProjectileLauncher : MonoBehaviour
     public void ThrowStone()
     {
         Quaternion rot = launchPoint.rotation;
-        rot.z = projectileSO.angle;
+        rot.x = projectileSO.angleX;
+        rot.y = projectileSO.angleY;
+        rot.z = projectileSO.angleZ;
         var _projectile = Instantiate(projectile, launchPoint.position, rot);
         _projectile.GetComponent<Rigidbody>().linearVelocity = projectileSO.speed * launchPoint.up;
         _projectile.GetComponent<Rigidbody>().mass = projectileSO.mass;
@@ -47,7 +50,8 @@ public class ProjectileLauncher : MonoBehaviour
          
             var x = (startVelocity.x * time) + (Physics.gravity.x / 2 * time * time);
             var y = (startVelocity.y * time) + (Physics.gravity.y / 2 * time * time);
-            Vector3 point = new Vector3(x, y, 0);
+            var z= (startVelocity.z * time) + (Physics.gravity.z / 2 * time * time);
+            Vector3 point = new Vector3(x, y, z);
             lineRenderer.SetPosition(i, origin + point);
             time += timeIntervalInPoints;
         }

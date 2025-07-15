@@ -1,84 +1,203 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.UIElements;
 public class MainUI : MonoBehaviour
 {
-    [SerializeField] UIDocument myUI;
+    [SerializeField] UIDocument _document;
+    [SerializeField] StyleSheet _styleSheet;
     [SerializeField] ProjectileLauncher myProjectileLauncher;
     [SerializeField] Transform launchingPad;
+    public ProjectileSO projectileSO;
     VisualElement root;
-    VisualElement head;
+    VisualElement container;
 
     Button throwBtn;
-    Slider angleSlider;
-    Slider angleYSlider;
+    Button drawBtn;
+    Button quitBtn;
+
+    Slider XSlider;
+    Slider YSlider;
+    Slider ZSlider;
     Slider speedSlider;
-    Slider massSlider;   
+    Slider massSlider;
+
+    public void OnValidate()
+    {
+        if (Application.isPlaying) return;
+
+        StartCoroutine(Generate());
+    }
+    IEnumerator Generate( )
+    {        
+        yield return null;
+       
+    }
 
     private void Awake()
     {
-        root = myUI.rootVisualElement;
-        head = root.Q<VisualElement>("Head");
+        root = _document.rootVisualElement;
+        root.styleSheets.Add(_styleSheet);
+        root.Clear();
+        container = UTIL.Create<VisualElement>("container");
+        throwBtn = UTIL.Create<Button>("button");
+        throwBtn.text = "Throw";
 
+        drawBtn = UTIL.Create<Button>("button");
+        drawBtn.text = "Draw";
+        quitBtn = UTIL.Create<Button>("button");
+        quitBtn.text = "Quit";
 
-        throwBtn = head.Q<Button>("ThrowBtn");
-        angleSlider = head.Q<Slider>("AngleSlider");
-        angleYSlider = head.Q<Slider>("AngleYSlider");
-        speedSlider = head.Q<Slider>("SpeedSlider");
-        massSlider = head.Q<Slider>("MassSlider");
+        XSlider = UTIL.Create<Slider>("my-slider");
+        YSlider = UTIL.Create<Slider>("my-slider");
+        ZSlider = UTIL.Create<Slider>("my-slider");
+        massSlider = UTIL.Create<Slider>("my-slider");
+        speedSlider = UTIL.Create<Slider>("my-slider");
+        XSlider.label = "         ";
+        YSlider.label = "         ";
+        ZSlider.label = "         ";
+        massSlider.label = "         ";
+        speedSlider.label = "         ";
+        XSlider.AddToClassList("slider-label");
 
-            
-        throwBtn.clicked += OnThrowButtonClick;
+       VisualElement buttonContainer = UTIL.Create<VisualElement>("head-box");
+
+        buttonContainer.Add(throwBtn);
+        buttonContainer.Add(drawBtn);
+        buttonContainer.Add(quitBtn);
+
+        container.Add(buttonContainer); 
+
+        container.Add(XSlider);
+        container.Add(YSlider);
+        container.Add(ZSlider);
+        container.Add(massSlider);
+        container.Add(speedSlider);
+        root.Add(container);
+
+    }
+
+    private void Start()
+    {
        
 
+        Initialize();
+        AddListener();
+    }
 
-        angleSlider.RegisterValueChangedCallback(evt =>
+    private void Initialize()
+    {
+        XSlider.value =  projectileSO.angleX;
+        YSlider.value =  projectileSO.angleY;
+        ZSlider.value = projectileSO.angleZ;
+        speedSlider.value = projectileSO.speed;
+        massSlider.value = projectileSO.mass;
+    }
+
+    void AddListener()
+    {
+        throwBtn.clicked += OnThrowButtonClick;
+        drawBtn.clicked += OnDrawButtonClick;
+        quitBtn.clicked += OnQuitButtonClick;
+
+        XSlider.RegisterValueChangedCallback(evt =>
         {
-            float angle = evt.newValue;
-            launchingPad.transform.rotation = Quaternion.Euler(0, 0,  angle);
-           
+            projectileSO.angleX = evt.newValue;
+            XSlider.label =string.Concat( evt.newValue.ToString(), " Angle");
+
         });
-        angleYSlider.RegisterValueChangedCallback(evt =>
+        YSlider.RegisterValueChangedCallback(evt =>
         {
-            // Rotate Y to a specific angle (e.g., 45 degrees)
-            launchingPad.transform.rotation = Quaternion.Euler(launchingPad.transform.rotation.eulerAngles.x, evt.newValue, launchingPad.transform.rotation.eulerAngles.z);
-
+            projectileSO.angleY = evt.newValue;
+            YSlider.label = string.Concat(evt.newValue.ToString(), " Angle");
 
         });
+        ZSlider.RegisterValueChangedCallback(evt =>
+        {
+            projectileSO.angleZ = evt.newValue;
+            ZSlider.label = string.Concat(evt.newValue.ToString(), " Angle");
 
+        });
         speedSlider.RegisterValueChangedCallback(evt =>
         {
-            Debug.Log(" value" + evt.newValue);
-            //float angle = evt.newValue;
-           // launchingPad.transform.rotation = Quaternion.Euler(0, 0, angle);
+            projectileSO.speed = evt.newValue;
+            speedSlider.label = string.Concat(evt.newValue.ToString(), " Speed");
 
         });
-
         massSlider.RegisterValueChangedCallback(evt =>
         {
-            Debug.Log(" value" + evt.newValue);
+            projectileSO.mass = evt.newValue;
+            massSlider.label = string.Concat(evt.newValue.ToString(), " Mass");
 
         });
+    }
+
+    private void OnQuitButtonClick()
+    {
+       
+    }
+
+    private void OnDrawButtonClick()
+    {
+        
     }
 
     private void OnThrowButtonClick()
     {
         myProjectileLauncher.ThrowStone();
-        //LockButtonAndSlider();
+        //StartCoroutine(FadeOut(container));
     }
 
     void LockButtonAndSlider()
     {
-        throwBtn.SetEnabled(false);
-        angleSlider.SetEnabled(false);
-        speedSlider.SetEnabled(false);
-        massSlider.SetEnabled(false);
+       
     }
     void UnLockButtonAndSlider()
     {
-        throwBtn.SetEnabled(true);
-        angleSlider.SetEnabled(true);
-        speedSlider.SetEnabled(true);
-        massSlider.SetEnabled(true);
+        
+    }
+    public void ShowPopup(List<string> texts)
+    {
+        var _popupContainer = UTIL.Create<VisualElement>("full-box");
+        var _popup = UTIL.Create<VisualElement>("popup-container");
+
+        foreach (string text in texts)
+        {
+            UnityEngine.UIElements.Label label = UTIL.Create<UnityEngine.UIElements.Label>("label");
+            label.AddToClassList("label-exercise");
+            label.text = text;
+            _popup.Add(label);
+        }
+        var closebtn = UTIL.Create<Button>("button", "bottom-button");
+        closebtn.text = "Close";
+        closebtn.clicked += () =>
+        {          
+            StartCoroutine(FadeOut(_popupContainer));            
+        };
+
+        _popupContainer.Add(_popup);
+        _popupContainer.Add(closebtn);
+        root.Add(_popupContainer);
+        StartCoroutine(FadeIn(_popupContainer));
+    }
+    IEnumerator FadeIn(VisualElement element)
+    {
+
+        element.AddToClassList("fade");
+        yield return null;
+        element.AddToClassList("fade-in");
+    }
+    IEnumerator FadeOut(VisualElement element)
+    {
+
+        element.AddToClassList("fade-hidden");
+
+        yield return new WaitForSeconds(0.5f);
+        element.RemoveFromHierarchy();
+        //root.Remove(element);
+
     }
 
 }
