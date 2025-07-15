@@ -10,12 +10,12 @@ public class ProjectileLauncher : MonoBehaviour
     public int linePoints = 175;
     public float timeIntervalInPoints = 0.01f;
  
-    bool isDrawing=false;
+    public bool isDrawing=false;
     void Update()
     {
         if(lineRenderer != null)
         {
-            if(Input.GetMouseButton(1))
+            if(isDrawing)
             {
                 DrawTrajectory();
                 lineRenderer.enabled = true;

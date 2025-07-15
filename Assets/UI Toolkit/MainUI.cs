@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.UIElements;
 public class MainUI : MonoBehaviour
@@ -13,64 +11,47 @@ public class MainUI : MonoBehaviour
     public ProjectileSO projectileSO;
     VisualElement root;
     VisualElement container;
-
     Button throwBtn;
     Button drawBtn;
-    Button quitBtn;
-
-    Slider XSlider;
+    Button quitBtn;   
     Slider YSlider;
     Slider ZSlider;
     Slider speedSlider;
-    Slider massSlider;
-
-    public void OnValidate()
-    {
-        if (Application.isPlaying) return;
-
-        StartCoroutine(Generate());
-    }
-    IEnumerator Generate( )
-    {        
-        yield return null;
-       
-    }
+    Slider massSlider;   
 
     private void Awake()
     {
         root = _document.rootVisualElement;
         root.styleSheets.Add(_styleSheet);
         root.Clear();
+        
         container = UTIL.Create<VisualElement>("container");
-        throwBtn = UTIL.Create<Button>("button");
-        throwBtn.text = "Throw";
-
         drawBtn = UTIL.Create<Button>("button");
-        drawBtn.text = "Draw";
+        throwBtn = UTIL.Create<Button>("button");
         quitBtn = UTIL.Create<Button>("button");
+        throwBtn.text = "Throw";
+        drawBtn.text = "Draw";
         quitBtn.text = "Quit";
-
-        XSlider = UTIL.Create<Slider>("my-slider");
+       
         YSlider = UTIL.Create<Slider>("my-slider");
         ZSlider = UTIL.Create<Slider>("my-slider");
         massSlider = UTIL.Create<Slider>("my-slider");
-        speedSlider = UTIL.Create<Slider>("my-slider");
-        XSlider.label = "         ";
-        YSlider.label = "         ";
-        ZSlider.label = "         ";
-        massSlider.label = "         ";
-        speedSlider.label = "         ";
-        XSlider.AddToClassList("slider-label");
+        speedSlider = UTIL.Create<Slider>("my-slider");           
 
-       VisualElement buttonContainer = UTIL.Create<VisualElement>("head-box");
+        //speedSlider.AddToClassList("slider-label");
+        //massSlider.AddToClassList("slider-label");
+        //YSlider.AddToClassList("slider-label");
+        //ZSlider.AddToClassList("slider-label");
+
+        VisualElement buttonContainer = UTIL.Create<VisualElement>("head-box");
 
         buttonContainer.Add(throwBtn);
         buttonContainer.Add(drawBtn);
         buttonContainer.Add(quitBtn);
 
-        container.Add(buttonContainer); 
+        container.Add(buttonContainer);
 
-        container.Add(XSlider);
+       
         container.Add(YSlider);
         container.Add(ZSlider);
         container.Add(massSlider);
@@ -81,17 +62,47 @@ public class MainUI : MonoBehaviour
 
     private void Start()
     {
-       
+        TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
+        FlyingStone.OnMissionComplete += FlyingStone_OnMissionComplete;
 
         Initialize();
         AddListener();
     }
 
-    private void Initialize()
+   
+
+    private void TargetStone_OnKnockDownEvent(StoneType obj)
     {
-        XSlider.value =  projectileSO.angleX;
-        YSlider.value =  projectileSO.angleY;
-        ZSlider.value = projectileSO.angleZ;
+        List<string> list = new List<string>();
+        list.Add("OK");
+        list.Add("OK, You won! ");        
+        ShowPopup(list);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            List<string> list = new List<string>();
+            list.Add("OK");
+            list.Add("OK, You won!");
+            ShowPopup(list);
+        }
+    }
+
+    private void Initialize()
+    {       
+        YSlider.lowValue = -90f;
+        YSlider.highValue = 90f;
+        ZSlider.lowValue = -90f;
+        ZSlider.highValue = 90f;
+        speedSlider.lowValue = 0;
+        speedSlider.highValue = 30;
+      
+        Vector3 rotation = launchingPad.transform.eulerAngles;     
+      
+        YSlider.value = rotation.y;
+        ZSlider.value = rotation.z;
+       
         speedSlider.value = projectileSO.speed;
         massSlider.value = projectileSO.mass;
     }
@@ -102,23 +113,43 @@ public class MainUI : MonoBehaviour
         drawBtn.clicked += OnDrawButtonClick;
         quitBtn.clicked += OnQuitButtonClick;
 
-        XSlider.RegisterValueChangedCallback(evt =>
+        drawBtn.RegisterCallback<MouseEnterEvent>(evt =>
         {
-            projectileSO.angleX = evt.newValue;
-            XSlider.label =string.Concat( evt.newValue.ToString(), " Angle");
-
+            Debug.Log("Mouse entered button!");
+            drawBtn.style.backgroundColor = new StyleColor(Color.green);
+            myProjectileLauncher.isDrawing = true;
         });
+
+        drawBtn.RegisterCallback<MouseLeaveEvent>(evt =>
+        {
+            Debug.Log("Mouse exited button!");
+            drawBtn.style.backgroundColor = new StyleColor(Color.white);
+            myProjectileLauncher.isDrawing = false;
+        });
+
+
+
+
+
+
+
+
+
+
         YSlider.RegisterValueChangedCallback(evt =>
         {
+            Vector3 rotation = launchingPad.transform.eulerAngles;
             projectileSO.angleY = evt.newValue;
             YSlider.label = string.Concat(evt.newValue.ToString(), " Angle");
 
+            launchingPad.transform.rotation = Quaternion.Euler(rotation.x, evt.newValue, rotation.z);
         });
         ZSlider.RegisterValueChangedCallback(evt =>
         {
+            Vector3 rotation = launchingPad.transform.eulerAngles;
             projectileSO.angleZ = evt.newValue;
             ZSlider.label = string.Concat(evt.newValue.ToString(), " Angle");
-
+            launchingPad.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, evt.newValue);
         });
         speedSlider.RegisterValueChangedCallback(evt =>
         {
@@ -136,27 +167,30 @@ public class MainUI : MonoBehaviour
 
     private void OnQuitButtonClick()
     {
-       
+
     }
 
     private void OnDrawButtonClick()
     {
-        
+
     }
 
     private void OnThrowButtonClick()
     {
-        myProjectileLauncher.ThrowStone();
-        //StartCoroutine(FadeOut(container));
+        myProjectileLauncher.ThrowStone();        
+        container.visible = false;
     }
-
+    private void FlyingStone_OnMissionComplete()
+    {
+        container.visible = true;
+    }
     void LockButtonAndSlider()
     {
-       
+        container.visible = true;
     }
     void UnLockButtonAndSlider()
     {
-        
+
     }
     public void ShowPopup(List<string> texts)
     {
@@ -173,8 +207,8 @@ public class MainUI : MonoBehaviour
         var closebtn = UTIL.Create<Button>("button", "bottom-button");
         closebtn.text = "Close";
         closebtn.clicked += () =>
-        {          
-            StartCoroutine(FadeOut(_popupContainer));            
+        {
+            StartCoroutine(FadeOut(_popupContainer));
         };
 
         _popupContainer.Add(_popup);
@@ -184,7 +218,6 @@ public class MainUI : MonoBehaviour
     }
     IEnumerator FadeIn(VisualElement element)
     {
-
         element.AddToClassList("fade");
         yield return null;
         element.AddToClassList("fade-in");
@@ -196,7 +229,7 @@ public class MainUI : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         element.RemoveFromHierarchy();
-        //root.Remove(element);
+       
 
     }
 

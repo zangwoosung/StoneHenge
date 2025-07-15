@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-   // public Transform player=null;      // Assign the Player's transform in the Inspector
-    public float speed = 5f;      // Movement speed
+    public float speed = 5f;     
 
 
     GameObject player;

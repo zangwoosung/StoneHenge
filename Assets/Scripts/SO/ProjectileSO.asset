@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af3149b0991fd784d9d432be6e28c978, type: 3}
   m_Name: ProjectileSO
   m_EditorClassIdentifier: 
-  angleX: 94
-  angleY: 105
-  angleZ: 112
-  mass: 32.8
-  speed: 7.3
+  angleX: -9
+  angleY: 13
+  angleZ: -52
+  mass: 2.77
+  speed: 16.9

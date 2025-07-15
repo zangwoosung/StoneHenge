@@ -24,7 +24,7 @@
 
 .full-box{
     flex-direction: column;    
-    background-color: grey;
+    background-color: white;
     width: 100%;
     height: 100%;   
     position: absolute;
@@ -154,8 +154,9 @@
 /* Root slider styling */
 .my-slider {
     width: 300px;
-    height: 20px;
+    height: 24px;
     margin: 10px;
+    
     flex-direction: row;
     align-items: center;
 }
@@ -172,7 +173,7 @@
 .my-slider .unity-slider__dragger {
     background-color: #00c6ff;
     border-radius: 50%;
-    width: 16px;
+    width: 26px;
     height: 16px;
     box-shadow: 0 0 6px rgba(0, 198, 255, 0.6);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -195,11 +196,13 @@
 
 /* Optional label styling */
 .slider-label {
-    font-size: 16px;
+    font-size: 14px;
     color: white;
-    margin-top: 5px;
+    margin-top: 0px;
     text-align: center;
     font-weight: bold;
+    
+    
 }
 
 
