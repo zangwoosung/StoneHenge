@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,10 +39,7 @@ public class MainUI : MonoBehaviour
         massSlider = UTIL.Create<Slider>("my-slider");
         speedSlider = UTIL.Create<Slider>("my-slider");           
 
-        //speedSlider.AddToClassList("slider-label");
-        //massSlider.AddToClassList("slider-label");
-        //YSlider.AddToClassList("slider-label");
-        //ZSlider.AddToClassList("slider-label");
+       
 
         VisualElement buttonContainer = UTIL.Create<VisualElement>("head-box");
 
@@ -64,30 +62,28 @@ public class MainUI : MonoBehaviour
     {
         TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
         FlyingStone.OnMissionComplete += FlyingStone_OnMissionComplete;
+        RaycastDrawer.OnRayCastHitZombiEvent += OnRayCastHitZombiEventHandler;
 
         Initialize();
         AddListener();
     }
 
-   
+    private void OnRayCastHitZombiEventHandler()
+    {
+        //what to do next? 
+        List<string> list = new List<string>();
+        list.Add("WOW");
+        list.Add("You lost");
+        ShowPopup(list);
+    }
 
     private void TargetStone_OnKnockDownEvent(StoneType obj)
     {
-        List<string> list = new List<string>();
-        list.Add("OK");
-        list.Add("OK, You won! ");        
-        ShowPopup(list);
-    }
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.P))
-        {
-            List<string> list = new List<string>();
-            list.Add("OK");
-            list.Add("OK, You won!");
-            ShowPopup(list);
-        }
-    }
+        //List<string> list = new List<string>();
+        //list.Add("WOW");
+        //list.Add("OK, You won! ");        
+        //ShowPopup(list);
+    }  
 
     private void Initialize()
     {       
@@ -102,7 +98,12 @@ public class MainUI : MonoBehaviour
       
         YSlider.value = rotation.y;
         ZSlider.value = rotation.z;
-       
+        
+        YSlider.label = "     ";
+        ZSlider.label = "     ";
+        speedSlider.label = "     ";
+        massSlider.label = "     ";
+
         speedSlider.value = projectileSO.speed;
         massSlider.value = projectileSO.mass;
     }
@@ -126,15 +127,6 @@ public class MainUI : MonoBehaviour
             drawBtn.style.backgroundColor = new StyleColor(Color.white);
             myProjectileLauncher.isDrawing = false;
         });
-
-
-
-
-
-
-
-
-
 
         YSlider.RegisterValueChangedCallback(evt =>
         {

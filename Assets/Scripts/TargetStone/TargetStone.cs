@@ -11,6 +11,7 @@ public class TargetStone : MonoBehaviour
 {
     public static event Action<StoneType> OnHitByProjectile;
     public static event Action<StoneType> OnKnockDownEvent;
+    public static event Action<Vector3> OnKnockDownToZombiEvent;
     public StoneType stoneType;
     public Renderer objRenderer;
 
@@ -28,7 +29,7 @@ public class TargetStone : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Stone"))
         {
-            Debug.Log("hit");
+            //Debug.Log("hit");
             OnHitByProjectile?.Invoke(stoneType);
             isHit = true;
         }
@@ -41,7 +42,7 @@ public class TargetStone : MonoBehaviour
             Debug.Log("hit Mathf.Abs(transform.eulerAngles.z " + Mathf.Abs(transform.eulerAngles.z));
             if (Mathf.Abs(transform.eulerAngles.z) == 270 || Mathf.Abs(transform.eulerAngles.z) == 90)
             {
-                Debug.Log("hit in update");               
+                OnKnockDownToZombiEvent?.Invoke(transform.position);
                 StartCoroutine(FadeOutObject());
                 isHit = false;
             }

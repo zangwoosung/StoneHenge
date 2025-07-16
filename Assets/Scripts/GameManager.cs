@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemTag
@@ -9,26 +10,19 @@ public enum ItemTag
 public class GameManager : MonoBehaviour
 {
     public ProjectileSO projectileSO;
-
     public ZombiSpawner zombiSpawner;
-
     public TargetStoneManager targetStoneManager;
-
-    public MainUI mainUI;
-
-    void Awake()
-    {
-       
-        Debug.Log("game Manager");
-
-    }
+    public MainUI mainUI;   
 
     private void Start()
     {
         targetStoneManager.CreateOneTargeStone();
-        zombiSpawner.SpawnZombi();       
-
+        zombiSpawner.SpawnZombi();
+        RaycastDrawer.OnRayCastHitZombiEvent += OnRayCastHitZombiEventHandler;
     }
 
-
+    private void OnRayCastHitZombiEventHandler()
+    {
+       //What to do next? 
+    }
 }

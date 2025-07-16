@@ -7,13 +7,14 @@ public class ZombiSpawner : MonoBehaviour
 
     public static event Action OnSpawnZombiEvent;
     public GameObject zombiPrefab;
+    public Transform startPoint;
     public int zombiCount;
     public float spacing = 2f; // Distance between cubes
-    public Transform startPoint;
     public float radius = 2f;
     public LayerMask targetLayer;
     [SerializeField] ItemTag zombiTag;
     [SerializeField] ItemTag targetTag;
+    [SerializeField] Transform container;
 
     GameObject[,] objectGrid;
     int count = 0;
@@ -22,7 +23,7 @@ public class ZombiSpawner : MonoBehaviour
         Vector3 point = pos;
         float radius = myRadius;
 
-        Collider[] hits = Physics.OverlapSphere(point, radius, targetLayer);
+        Collider[] hits = Physics.OverlapSphere(point, radius * 5, targetLayer);
 
         foreach (Collider col in hits)
         {
@@ -49,9 +50,9 @@ public class ZombiSpawner : MonoBehaviour
 
     private void Start()
     {
-        TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
+        TargetStone.OnKnockDownToZombiEvent += TargetStone_OnKnockDownEvent;
         TargetStone.OnHitByProjectile += TargetStone_OnHitByProjectile;
-       
+
         SpawnZombi();
     }
 
@@ -61,16 +62,11 @@ public class ZombiSpawner : MonoBehaviour
         count++;
     }
 
-    private void TargetStone_OnKnockDownEvent(StoneType obj)
+    private void TargetStone_OnKnockDownEvent(Vector3 pos)
     {
-        GameObject fallenStone = GameObject.FindWithTag(targetTag.ToString());
 
-        Debug.Log(fallenStone.transform.position);
-
-        FindAndRemove(fallenStone.transform.position, radius);
+        FindAndRemove(pos, radius);
     }
-
-
 
     public void SpawnZombi()
     {
@@ -83,12 +79,11 @@ public class ZombiSpawner : MonoBehaviour
         {
             for (int z = 0; z < zombiCount; z++)
             {
-                Vector3 position = new Vector3(x + 28, y, z - 22) * spacing;
+                Vector3 position = new Vector3(x, y, z) * spacing;
                 GameObject clone = Instantiate(zombiPrefab, position, Quaternion.identity);
+                clone.transform.SetParent(container, false);
                 objectGrid[x, z] = clone;
-
             }
-
         }
     }
 
