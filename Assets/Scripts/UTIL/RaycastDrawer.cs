@@ -7,7 +7,7 @@ public class RaycastDrawer : MonoBehaviour
     public bool isHasHit=false;
     void Update()
     {
-        if (isHasHit) return; 
+       // if (isHasHit) return; 
         Vector3 origin = transform.position;
         Vector3 direction = transform.forward;
         float maxDistance = 100f;
@@ -19,7 +19,7 @@ public class RaycastDrawer : MonoBehaviour
             Destroy(hit.transform.gameObject);
 
             OnRayCastHitZombiEvent?.Invoke();
-            isHasHit = true;
+            //isHasHit = true;
         }
         else
         {

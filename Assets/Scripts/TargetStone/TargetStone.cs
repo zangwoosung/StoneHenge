@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -21,15 +22,12 @@ public class TargetStone : MonoBehaviour
       
     private void Start()
     {
-
         originalColor = objRenderer.material.color;
-
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Stone"))
-        {
-            //Debug.Log("hit");
+        {            
             OnHitByProjectile?.Invoke(stoneType);
             isHit = true;
         }
@@ -38,9 +36,9 @@ public class TargetStone : MonoBehaviour
     void Update()
     {
         if (isHit)
-        {
-            Debug.Log("hit Mathf.Abs(transform.eulerAngles.z " + Mathf.Abs(transform.eulerAngles.z));
-            if (Mathf.Abs(transform.eulerAngles.z) == 270 || Mathf.Abs(transform.eulerAngles.z) == 90)
+        {             
+           
+            if ((Math.Abs(transform.eulerAngles.z - 270) < 3f)  ||  Math.Abs(transform.eulerAngles.z - 90f) < 3)
             {
                 OnKnockDownToZombiEvent?.Invoke(transform.position);
                 StartCoroutine(FadeOutObject());
@@ -62,7 +60,7 @@ public class TargetStone : MonoBehaviour
         }       
         Color finalColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
         objRenderer.material.color = finalColor;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         OnKnockDownEvent?.Invoke(stoneType);
         Destroy(gameObject);
     }

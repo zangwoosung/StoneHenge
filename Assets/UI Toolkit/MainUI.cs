@@ -5,27 +5,25 @@ using UnityEngine;
 using UnityEngine.UIElements;
 public class MainUI : MonoBehaviour
 {
+    public Transform launchingPad;
+    public ProjectileSO projectileSO;
+    [SerializeField] ProjectileLauncher myProjectileLauncher;
+    [SerializeField] TargetStoneManager targetStoneManager;
+
+    [Header("UI"), Space(10)]
     [SerializeField] UIDocument _document;
     [SerializeField] StyleSheet _styleSheet;
-    [SerializeField] ProjectileLauncher myProjectileLauncher;
-    [SerializeField] Transform launchingPad;
-    public ProjectileSO projectileSO;
     VisualElement root;
     VisualElement container;
-    Button throwBtn;
-    Button drawBtn;
-    Button quitBtn;   
-    Slider YSlider;
-    Slider ZSlider;
-    Slider speedSlider;
-    Slider massSlider;   
+    Button throwBtn, drawBtn,quitBtn;
+    Slider YSlider, ZSlider, speedSlider, massSlider;
 
     private void Awake()
     {
         root = _document.rootVisualElement;
         root.styleSheets.Add(_styleSheet);
         root.Clear();
-        
+
         container = UTIL.Create<VisualElement>("container");
         drawBtn = UTIL.Create<Button>("button");
         throwBtn = UTIL.Create<Button>("button");
@@ -33,13 +31,11 @@ public class MainUI : MonoBehaviour
         throwBtn.text = "Throw";
         drawBtn.text = "Draw";
         quitBtn.text = "Quit";
-       
+
         YSlider = UTIL.Create<Slider>("my-slider");
         ZSlider = UTIL.Create<Slider>("my-slider");
         massSlider = UTIL.Create<Slider>("my-slider");
-        speedSlider = UTIL.Create<Slider>("my-slider");           
-
-       
+        speedSlider = UTIL.Create<Slider>("my-slider");
 
         VisualElement buttonContainer = UTIL.Create<VisualElement>("head-box");
 
@@ -49,7 +45,7 @@ public class MainUI : MonoBehaviour
 
         container.Add(buttonContainer);
 
-       
+
         container.Add(YSlider);
         container.Add(ZSlider);
         container.Add(massSlider);
@@ -60,45 +56,56 @@ public class MainUI : MonoBehaviour
 
     private void Start()
     {
-        TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
-        FlyingStone.OnMissionComplete += FlyingStone_OnMissionComplete;
-        RaycastDrawer.OnRayCastHitZombiEvent += OnRayCastHitZombiEventHandler;
-
         Initialize();
         AddListener();
     }
 
-    private void OnRayCastHitZombiEventHandler()
+    public void OnStageClearEvent()
     {
-        //what to do next? 
+        List<string> list = new List<string>();
+        list.Add("WOW");
+        list.Add("You Won");
+        ShowPopup(list, WhenYouWin);
+
+    }
+
+    public void OnRayCastHitZombiEventHandler() 
+    {
         List<string> list = new List<string>();
         list.Add("WOW");
         list.Add("You lost");
-        ShowPopup(list);
+        ShowPopup(list, WhenYouLose);
     }
 
-    private void TargetStone_OnKnockDownEvent(StoneType obj)
+    void WhenYouLose()
+    {        
+        Debug.Log("Game again!");
+    }
+    void WhenYouWin()
     {
-        //List<string> list = new List<string>();
-        //list.Add("WOW");
-        //list.Add("OK, You won! ");        
-        //ShowPopup(list);
-    }  
+        targetStoneManager.CreateOneTargeStone();
+    }
+    public void TargetStone_OnKnockDownEvent(StoneType obj) //stage clear
+    {
+        //what to do next? 
+        Debug.Log("One stone fell down!");
+
+    }
 
     private void Initialize()
-    {       
+    {
         YSlider.lowValue = -90f;
         YSlider.highValue = 90f;
         ZSlider.lowValue = -90f;
         ZSlider.highValue = 90f;
         speedSlider.lowValue = 0;
         speedSlider.highValue = 30;
-      
-        Vector3 rotation = launchingPad.transform.eulerAngles;     
-      
+
+        Vector3 rotation = launchingPad.transform.eulerAngles;
+
         YSlider.value = rotation.y;
         ZSlider.value = rotation.z;
-        
+
         YSlider.label = "     ";
         ZSlider.label = "     ";
         speedSlider.label = "     ";
@@ -169,29 +176,22 @@ public class MainUI : MonoBehaviour
 
     private void OnThrowButtonClick()
     {
-        myProjectileLauncher.ThrowStone();        
+        myProjectileLauncher.ThrowStone();
         container.visible = false;
     }
-    private void FlyingStone_OnMissionComplete()
+    public void FlyingStone_OnMissionComplete()
     {
         container.visible = true;
     }
-    void LockButtonAndSlider()
-    {
-        container.visible = true;
-    }
-    void UnLockButtonAndSlider()
-    {
-
-    }
-    public void ShowPopup(List<string> texts)
+   
+    public void ShowPopup(List<string> texts, Action myAction)
     {
         var _popupContainer = UTIL.Create<VisualElement>("full-box");
         var _popup = UTIL.Create<VisualElement>("popup-container");
 
         foreach (string text in texts)
         {
-            UnityEngine.UIElements.Label label = UTIL.Create<UnityEngine.UIElements.Label>("label");
+            Label label = UTIL.Create<Label>("label");
             label.AddToClassList("label-exercise");
             label.text = text;
             _popup.Add(label);
@@ -200,6 +200,7 @@ public class MainUI : MonoBehaviour
         closebtn.text = "Close";
         closebtn.clicked += () =>
         {
+            myAction.Invoke();
             StartCoroutine(FadeOut(_popupContainer));
         };
 
@@ -216,12 +217,9 @@ public class MainUI : MonoBehaviour
     }
     IEnumerator FadeOut(VisualElement element)
     {
-
         element.AddToClassList("fade-hidden");
-
         yield return new WaitForSeconds(0.5f);
         element.RemoveFromHierarchy();
-       
 
     }
 

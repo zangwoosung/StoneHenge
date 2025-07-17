@@ -749,6 +749,7 @@ MonoBehaviour:
   maxX: 20
   minZ: -5
   maxZ: 5
+  count: 0
 --- !u!1 &294831139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,11 +1375,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98109ed0d9d3e444a66282cb67200a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _document: {fileID: 1568360339}
-  _styleSheet: {fileID: 7433441132597879392, guid: 7a087892b06acc640ab260a60c3f22a3, type: 3}
-  myProjectileLauncher: {fileID: 930342506}
   launchingPad: {fileID: 612391968}
   projectileSO: {fileID: 11400000, guid: 7714020f1b4c9cf44b039565b8352531, type: 2}
+  myProjectileLauncher: {fileID: 930342506}
+  targetStoneManager: {fileID: 270033580}
+  _document: {fileID: 1568360339}
+  _styleSheet: {fileID: 7433441132597879392, guid: 7a087892b06acc640ab260a60c3f22a3, type: 3}
 --- !u!114 &1568360339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1774,7 +1776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2117058144
 Transform:
   m_ObjectHideFlags: 0
