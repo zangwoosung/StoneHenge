@@ -10,7 +10,7 @@ public class ProjectileLauncher : MonoBehaviour
     public int linePoints = 175;
     public float timeIntervalInPoints = 0.01f;
  
-    public bool isDrawing=false;
+    public bool isDrawing=true;
     void Update()
     {
         if(lineRenderer != null)

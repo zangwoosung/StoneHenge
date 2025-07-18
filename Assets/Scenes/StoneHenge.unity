@@ -119,6 +119,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &63637397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 63637398}
+  m_Layer: 0
+  m_Name: RaycasterToStone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &63637398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63637397}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 753287589}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &63999290
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,7 +775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2230ea7d9b799f44eba7d40cb80d4ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stonePrefab: {fileID: 3883431944847402139, guid: b2f8075a3093da84cae4a84a1e4eeb6b, type: 3}
+  stonePrefab: {fileID: 1418860561918544383, guid: 21440718d3f07344e841a649af5745d8, type: 3}
   minX: 11
   maxX: 20
   minZ: -5
@@ -1065,6 +1096,7 @@ Transform:
   - {fileID: 167994023}
   - {fileID: 2016146781}
   - {fileID: 2032155102}
+  - {fileID: 63637398}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &930342503
@@ -1799,7 +1831,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2117058143}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49d9bd072ffdbda4f976dd5caf6dc9cd, type: 3}
   m_Name: 

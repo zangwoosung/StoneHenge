@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
         FlyingStone.OnMissionComplete += FlyingStone_OnMissionComplete;
 
         targetStoneManager.CreateOneTargeStone();
-        zombiSpawner.SpawnZombi();
+       // zombiSpawner.SpawnZombi();
 
     }
 

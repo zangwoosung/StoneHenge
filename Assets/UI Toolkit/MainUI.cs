@@ -123,16 +123,16 @@ public class MainUI : MonoBehaviour
 
         drawBtn.RegisterCallback<MouseEnterEvent>(evt =>
         {
-            Debug.Log("Mouse entered button!");
+           
             drawBtn.style.backgroundColor = new StyleColor(Color.green);
             myProjectileLauncher.isDrawing = true;
         });
 
         drawBtn.RegisterCallback<MouseLeaveEvent>(evt =>
         {
-            Debug.Log("Mouse exited button!");
+           
             drawBtn.style.backgroundColor = new StyleColor(Color.white);
-            myProjectileLauncher.isDrawing = false;
+           // myProjectileLauncher.isDrawing = false;
         });
 
         YSlider.RegisterValueChangedCallback(evt =>

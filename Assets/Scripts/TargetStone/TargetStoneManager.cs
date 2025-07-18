@@ -9,7 +9,7 @@ public class TargetStoneManager : MonoBehaviour
     public float minZ, maxZ;
     [SerializeField] int count=default(int);    
 
-    Vector3 scale = new Vector3(0.5f, 2, 1);
+    Vector3 scale = new Vector3(1f, 1f, 1f);
     Vector3 pos;
     float newMass = 1;
     int clearCount=3;    
