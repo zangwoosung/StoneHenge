@@ -13,7 +13,8 @@ public class ProjectileLauncher : MonoBehaviour
     public bool isDrawing=true;
     void Update()
     {
-        if(lineRenderer != null)
+        DrawTrajectory();
+      /*  if (lineRenderer != null)
         {
             if(isDrawing)
             {
@@ -22,7 +23,7 @@ public class ProjectileLauncher : MonoBehaviour
             }
             else
                 lineRenderer.enabled = false;
-        }      
+        }*/      
     }
 
     public void ThrowStone()

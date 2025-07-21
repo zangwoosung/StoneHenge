@@ -1,8 +1,5 @@
-using NUnit.Framework.Constraints;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 public enum StoneType
 {
@@ -15,9 +12,11 @@ public class TargetStone : MonoBehaviour
     public static event Action<StoneType> OnHitByProjectile;
     public static event Action<StoneType> OnKnockDownEvent;
     public static event Action<Vector3> OnKnockDownToZombiEvent;
+
     public StoneType stoneType;
     public Renderer objRenderer;
     public float offset = 30f;
+   
     float fadeDuration = 2f;
     Color originalColor;
     public bool isHit = false;
@@ -35,7 +34,6 @@ public class TargetStone : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-
         if (collision.gameObject.CompareTag("Stone"))
         {
             OnHitByProjectile?.Invoke(stoneType);
@@ -43,14 +41,12 @@ public class TargetStone : MonoBehaviour
             
             foreach (ContactPoint hitcontact in collision.contacts)
             {
-                //Debug.Log("Contact at: " + contact.point);
                 VisualizeContact(hitcontact.point);
             }
 
             ContactPoint contact = collision.contacts[0];
             Vector3 contactPoint = contact.point;
 
-           // MeshCollider meshCol = meshCollider;// contact.otherCollider as MeshCollider;
             if (meshCollider != null)
             {
                 float edgeDistance = EdgeDistanceCalculator.GetDistanceToNearestEdge(meshCollider, contactPoint);
@@ -67,7 +63,7 @@ public class TargetStone : MonoBehaviour
         marker.transform.position = point;
         marker.transform.localScale = Vector3.one * 0.1f;
         marker.GetComponent<Renderer>().material.color = Color.red;
-        Destroy(marker, 2f); // auto-destroy after 2 seconds
+        Destroy(marker, 2f); 
     }
 
 
@@ -86,14 +82,19 @@ public class TargetStone : MonoBehaviour
     {
         if (isHit)
         {
-
             if ((Math.Abs(transform.eulerAngles.z - 270) < 30f) || Math.Abs(transform.eulerAngles.z - 90f) < 30f)
             {
                 OnKnockDownToZombiEvent?.Invoke(transform.position);
                 StartCoroutine(FadeOutObject());
                 isHit = false;
             }
+            CheckDistanceFromHighestToGround();
         }
+    }
+
+    private void CheckDistanceFromHighestToGround()
+    {
+        
     }
 
     IEnumerator FadeOutObject()
