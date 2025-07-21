@@ -83,7 +83,7 @@ public class MainUI : MonoBehaviour
     }
     void WhenYouWin()
     {
-        targetStoneManager.CreateOneTargeStone();
+        //targetStoneManager.CreateOneTargeStone();
     }
     public void TargetStone_OnKnockDownEvent(StoneType obj) //stage clear
     {

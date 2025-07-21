@@ -1,18 +1,22 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.Image;
+
 
 public class RaycastAtHeight : MonoBehaviour
 {
-    public Transform target;      // Assign the target point in the Inspector
+ 
+    public event Action OnStoneHasFallenEvent;
     public float maxDistance = 100f;
-
+    Transform target;
     Vector3 origin;
     Vector3 direction;
-
     Vector3 TargetHeight;
-    Vector3 GetTargetHeight()
-    {      
-        Renderer renderer = target.GetComponent<Renderer>();    
+    bool isLocked = false;
+    private Vector3 startPos;
+    Vector3 GetTargetHeight(Renderer ren)
+    {
+        Renderer renderer = ren;    
 
         Bounds bounds = renderer.bounds;      
         Vector3 origin = new Vector3(
@@ -26,23 +30,41 @@ public class RaycastAtHeight : MonoBehaviour
 
     float myHeight = 0;
 
-    void Start()
+    public void Init(GameObject obj)
     {
-        origin = transform.position;
-        TargetHeight= GetTargetHeight();
-        origin.y = TargetHeight.y;
-        direction = (TargetHeight - origin).normalized;
+        startPos = transform.position;
 
+        target = obj.transform;
+
+        TargetHeight= GetTargetHeight(obj.GetComponent<Renderer>());
+        origin = transform.position;
+        origin.y = TargetHeight.y;
+        direction = transform.forward;// (TargetHeight - origin).normalized;
+
+        //Vector3 direction = transform.forward;
+        isLocked = true;
     }
 
     float lapTime = 0;
+    float speed = 5;
+    float distance = 10;
     void Update()
     {
-        origin = transform.position;
-        origin.y = myHeight;
+        if (!isLocked) return;
 
+        //float offset = Mathf.PingPong(Time.time * speed, distance);
+        //transform.position = new Vector3(startPos.x + offset, startPos.y, startPos.z);
+
+
+
+        //origin = transform.position;
+        //origin.y = TargetHeight.y;
+
+        ////direction = (TargetHeight - origin).normalized;
+        direction = transform.forward;// 
 
         Ray ray = new Ray(origin, direction);
+
         if (Physics.Raycast(ray, out RaycastHit hit, maxDistance))
         {
             Debug.Log("Hit: " + hit.collider.name);
@@ -50,10 +72,11 @@ public class RaycastAtHeight : MonoBehaviour
         else
         {
             lapTime += Time.deltaTime;
-            if(lapTime > 1)
+            if(lapTime > 2)
             {
                 //has fallen down. 
-
+                OnStoneHasFallenEvent?.Invoke();
+                lapTime = 0;
             } 
 
             Debug.Log("Not Hit: ");

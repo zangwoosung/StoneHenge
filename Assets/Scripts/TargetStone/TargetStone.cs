@@ -26,7 +26,7 @@ public class TargetStone : MonoBehaviour
         meshCollider = GetComponent<MeshCollider>();
 
         Vector3 highestPoint = gameObject.GetComponent<Collider>().bounds.max;
-        Debug.Log("on enables highest point" + highestPoint);
+       // Debug.Log("on enables highest point" + highestPoint);
     }
     private void Start()
     {

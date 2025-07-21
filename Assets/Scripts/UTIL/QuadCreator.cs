@@ -101,10 +101,10 @@ public class QuadCreator : MonoBehaviour
         Vector3 size = renderer.bounds.size;
 
         Vector3 localPos = new Vector3(
-            Random.Range(-size.x / 2f, size.x / 2),
-            Random.Range(-size.z / 2f, size.z / 2),
-            0f
-        );
+                Random.Range(-size.x, size.x),
+                Random.Range(-size.z, size.z),
+                0f
+            );
 
         worldPos = quad.transform.TransformPoint(localPos); // C
         return worldPos;
@@ -114,7 +114,17 @@ public class QuadCreator : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.B))
         {
-           
+            MeshRenderer renderer = quad.GetComponent<MeshRenderer>();
+            Vector3 size = renderer.bounds.size;
+
+            Vector3 localPos = new Vector3(
+                Random.Range(-size.x , size.x),
+                Random.Range(-size.z , size.z),
+                0f
+            );
+
+            worldPos = quad.transform.TransformPoint(localPos); // C
+            Instantiate(prefabToSpawn, worldPos, Quaternion.identity);
         }
         if (Input.GetKey(KeyCode.C))
         {

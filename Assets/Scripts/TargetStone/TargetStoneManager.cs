@@ -6,6 +6,7 @@ public class TargetStoneManager : MonoBehaviour
     public static event Action OnStageClearEvent;
     public GameObject stonePrefab;
     [SerializeField] QuadCreator quadCreator;
+    [SerializeField] RaycastAtHeight raycastAtHeight;
     [SerializeField] int count = default(int);
 
     Vector3 scale = new Vector3(1f, 1f, 1f);
@@ -23,6 +24,12 @@ public class TargetStoneManager : MonoBehaviour
     {
         pos = quadCreator.GetArea();
         TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
+        raycastAtHeight.OnStoneHasFallenEvent += RaycastAtHeight_OnStoneHasFallenEvent;   
+    }
+
+    private void RaycastAtHeight_OnStoneHasFallenEvent()
+    {
+        TargetStone_OnKnockDownEvent(StoneType.High);
     }
 
     private void TargetStone_OnKnockDownEvent(StoneType obj)
@@ -58,8 +65,8 @@ public class TargetStoneManager : MonoBehaviour
         Rigidbody rb = stonePrefab.GetComponent<Rigidbody>();
         if (rb != null) rb.mass = newMass;
 
-        Instantiate(stonePrefab, pos, Quaternion.identity);
-
+       var clone =  Instantiate(stonePrefab, pos, Quaternion.identity);
+        raycastAtHeight.Init(clone);
     }
 
     public void ResetValue()
@@ -71,39 +78,10 @@ public class TargetStoneManager : MonoBehaviour
         newMass += 1;
 
         quadCreator.CreateQuad();
-        // pos = quadCreator.GetArea();    
+        
 
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-
-            GameObject[] objects = GameObject.FindGameObjectsWithTag("Target");
-            foreach (GameObject obj in objects)
-            {
-                Destroy(obj);
-            }
-            ResetValue();
-            CreateOneTargeStone();
-
-        }
-        if (Input.GetKey(KeyCode.Z))
-        {
-            TargetStone_OnKnockDownEvent(StoneType.Middle);
-        }
-    }
+   
 
 }
-//private void Update()
-//{
-//    if (Input.GetKey(KeyCode.B))
-//    {
-//        SpawnInside();
-//    }
-//    if (Input.GetKey(KeyCode.C))
-//    {
-//        Setup(5, 5);
-//    }
-//}
