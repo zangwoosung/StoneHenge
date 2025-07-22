@@ -1,18 +1,16 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class RaycastAtHeight : MonoBehaviour
+public class RaycastAtHeightTEST : MonoBehaviour
 {
     public event Action OnStoneHasFallenEvent;
-    public static event Action OnNoStoneStandingEvent;
     public float maxDistance = 100f;
     public GameObject objectA;
     public GameObject objectB;
     public float speed = 15;
     public float lapTime = 5;
     float myHeight = 0;
-    Color statusColor = Color.blue;
+    Color statusColor = Color.blue;    
     Vector3 SourcePos;
     bool isLocked = false;
 
@@ -30,12 +28,11 @@ public class RaycastAtHeight : MonoBehaviour
             bounds.center.z
         );
         myHeight = origin.y;
-
+       
     }
 
     public void Init(GameObject obj)
     {
-        Debug.Log("Init ");
         objectB = obj;
         GetTargetHeight(objectB.GetComponent<Renderer>());
         isLocked = true;
@@ -56,7 +53,11 @@ public class RaycastAtHeight : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(SourcePos, objectA.transform.forward * maxDistance, statusColor);
+        if (Input.GetKey(KeyCode.C))
+        {
+            Init(objectB);
+        }
+
         if (!isLocked) return;
 
         int rayCount = 3;
@@ -71,27 +72,22 @@ public class RaycastAtHeight : MonoBehaviour
             if (Physics.Raycast(SourcePos, direction, out RaycastHit hit))
             {
                 statusColor = Color.green;
-                //Debug.Log($"Ray {i} hit: {hit.collider.name}");
+                Debug.Log($"Ray {i} hit: {hit.collider.name}");
                 lapTime = 0;
             }
             else
             {
                 lapTime += Time.deltaTime;
-                if (lapTime > 6)
+                if (lapTime > 3)
                 {
-                    isLocked = false;
-                    lapTime = 0;
                     statusColor = Color.yellow;
-                    OnNoStoneStandingEvent?.Invoke();
                     Debug.Log("It has fallen");
                 }
-               // Debug.Log($"Ray {i} not hit: ");
+                Debug.Log($"Ray {i} not hit: ");
             }
             Debug.DrawRay(SourcePos, direction * maxDistance, statusColor);
         }
 
     }
-
-
 
 }

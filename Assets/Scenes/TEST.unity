@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 1329374281}
   - component: {fileID: 1329374280}
   - component: {fileID: 1329374279}
-  - component: {fileID: 1329374278}
+  - component: {fileID: 1329374283}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Target
@@ -475,20 +475,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1329374278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1329374277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21652fb93b95e6846a0ae5257719c817, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 857443037}
-  maxDistance: 100
 --- !u!65 &1329374279
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -578,6 +564,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1329374283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329374277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e5a6d02bc19b84f87855b89909c713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 100
+  objectA: {fileID: 1329374277}
+  objectB: {fileID: 857443033}
+  speed: 15
 --- !u!1 &1521547788
 GameObject:
   m_ObjectHideFlags: 0

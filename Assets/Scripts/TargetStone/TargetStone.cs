@@ -23,11 +23,22 @@ public class TargetStone : MonoBehaviour
     MeshCollider meshCollider;
     private void OnEnable()
     {
+        RaycastAtHeight.OnNoStoneStandingEvent += OnNoStoneStandingEvent;
         meshCollider = GetComponent<MeshCollider>();
 
         Vector3 highestPoint = gameObject.GetComponent<Collider>().bounds.max;
-       // Debug.Log("on enables highest point" + highestPoint);
+      
     }
+    private void OnDisable()
+    {
+        RaycastAtHeight.OnNoStoneStandingEvent -= OnNoStoneStandingEvent;
+    }
+
+    private void OnNoStoneStandingEvent()
+    {
+        StartCoroutine(FadeOutObject());
+    }
+
     private void Start()
     {
         originalColor = objRenderer.material.color;
@@ -65,37 +76,10 @@ public class TargetStone : MonoBehaviour
         marker.GetComponent<Renderer>().material.color = Color.red;
         Destroy(marker, 2f); 
     }
+       
 
-
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-
-
-        }
-
-    }
-
-    void Update()
-    {
-        if (isHit)
-        {
-            if ((Math.Abs(transform.eulerAngles.z - 270) < 30f) || Math.Abs(transform.eulerAngles.z - 90f) < 30f)
-            {
-                OnKnockDownToZombiEvent?.Invoke(transform.position);
-                StartCoroutine(FadeOutObject());
-                isHit = false;
-            }
-            CheckDistanceFromHighestToGround();
-        }
-    }
-
-    private void CheckDistanceFromHighestToGround()
-    {
-        
-    }
+    
+   
 
     IEnumerator FadeOutObject()
     {
@@ -112,7 +96,7 @@ public class TargetStone : MonoBehaviour
         objRenderer.material.color = finalColor;
         yield return new WaitForSeconds(0.5f);
         OnKnockDownEvent?.Invoke(stoneType);
-        Destroy(gameObject);
+        Destroy(gameObject, 0.2f);
     }
 
 
