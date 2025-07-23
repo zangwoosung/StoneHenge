@@ -17,12 +17,12 @@ public class TargetStoneManager : MonoBehaviour
 
     private void OnEnable()
     {
-        quadCreator.CreateQuad();
+       
 
     }
     private void Start()
     {
-        pos = quadCreator.GetArea();
+        quadCreator.CreateQuad();
         TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
         raycastAtHeight.OnStoneHasFallenEvent += RaycastAtHeight_OnStoneHasFallenEvent;   
     }
@@ -48,12 +48,13 @@ public class TargetStoneManager : MonoBehaviour
         {
             Destroy(item);
         }
-
+       // quadCreator.CreateQuad();
         CreateOneTargeStone();
     }
 
     public void CreateOneTargeStone()
     {
+        quadCreator.CreateQuad();
         //range 
         pos = quadCreator.GetArea();
         pos.y = 0.1f;

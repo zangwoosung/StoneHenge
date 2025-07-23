@@ -1,59 +1,55 @@
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class QuadCreator : MonoBehaviour
 {
+    //과제: 스테이지 증가에 따라서 색상 바꾸기.
+    // 불필요한 코드 제거. 
+    // 그 밖에 효과 주기 예) 소리, 이펙, 알파 조정. 
 
     [SerializeField] Transform container;
     [SerializeField] GameObject prefabToSpawn;
     [SerializeField] GameObject quad;
 
-    Vector3 position = Vector3.zero;
-    Vector3 worldPos;
+    Vector3 position = Vector3.zero;  
     float width = 2f;
     float height = 2f;
     private void OnEnable()
     {
-        position = quad.transform.position;
+        position = container.transform.position;
+        position.y = 0.02f;
     }
-    private void Start()
-    {       
-        CreateQuad();
-    }
+
     public void Setup(float w, float h)
     {
         this.width = w;
-        this.height = h;       
+        this.height = h;
     }
 
-   public void CreateQuad()
+    public void CreateQuad()
     {
-        GameObject target = GameObject.Find("AreaQuad"); 
-        if (target != null)
-        {
+        GameObject target = GameObject.Find("AreaQuad");
+        if (target != null)     
             Destroy(target);
-        }
+        
 
-      var  quad = new GameObject("AreaQuad");
+        quad = new GameObject("AreaQuad");
         quad.transform.position = position;
-        quad.transform.parent = container;
-        quad.transform.up = Vector3.up;
+        quad.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
 
         MeshFilter meshFilter = quad.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = quad.AddComponent<MeshRenderer>();
         meshRenderer.material = new Material(Shader.Find("Standard"));
-        meshRenderer.material = new Material(Shader.Find("Unlit/Color")); // Use Unlit to avoid lighting issues
-        meshRenderer.material.color = Color.blue; // Set to any color you like
-
-
+        meshRenderer.material = new Material(Shader.Find("Unlit/Color")); 
+        meshRenderer.material.color = Color.blue; 
         Mesh mesh = new Mesh();
 
         Vector3[] vertices = new Vector3[4]
         {
-            new Vector3(-width / 2f, -height / 2f, 0f),
-            new Vector3(width / 2f, -height / 2f, 0f),
-            new Vector3(-width / 2f, height / 2f, 0f),
-            new Vector3(width / 2f, height / 2f, 0f)
+            new Vector3(0, 0, 0),
+            new Vector3(width, 0, 0),
+            new Vector3(0, height, 0),
+            new Vector3(width, height, 0)
         };
         mesh.vertices = vertices;
         mesh.RecalculateBounds();
@@ -85,50 +81,17 @@ public class QuadCreator : MonoBehaviour
         mesh.triangles = triangles;
         mesh.normals = normals;
         mesh.uv = uv;
-
-        meshFilter.mesh = mesh;
-        quad.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-
-        width += 1f;
-        height += 1f;
-        position.x += 0.5f;
+        meshFilter.mesh = mesh;       
 
     }
-    
-    public Vector3 GetArea()
-    {
-        MeshRenderer renderer = quad.GetComponent<MeshRenderer>();
-        Vector3 size = renderer.bounds.size;
 
+    public Vector3 GetArea()  // 메서드 명 바꾸기.  GetRandomPoint is better. 
+    {                       // local과 world 좌표계 이해 
         Vector3 localPos = new Vector3(
-                Random.Range(-size.x, size.x),
-                Random.Range(-size.z, size.z),
-                0f
-            );
-
-        worldPos = quad.transform.TransformPoint(localPos); // C
-        return worldPos;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.B))
-        {
-            MeshRenderer renderer = quad.GetComponent<MeshRenderer>();
-            Vector3 size = renderer.bounds.size;
-
-            Vector3 localPos = new Vector3(
-                Random.Range(-size.x , size.x),
-                Random.Range(-size.z , size.z),
-                0f
-            );
-
-            worldPos = quad.transform.TransformPoint(localPos); // C
-            Instantiate(prefabToSpawn, worldPos, Quaternion.identity);
-        }
-        if (Input.GetKey(KeyCode.C))
-        {
-            Setup(5, 5);
-        }
-    }
+           Random.Range(0f, width),
+           Random.Range(0f, height),
+           0f
+       );       
+        return quad.transform.TransformPoint(localPos);
+    }    
 }

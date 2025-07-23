@@ -12,6 +12,8 @@ public class TargetStone : MonoBehaviour
     public static event Action<StoneType> OnHitByProjectile;
     public static event Action<StoneType> OnKnockDownEvent;
     public static event Action<Vector3> OnKnockDownToZombiEvent;
+    public static event Action<float>   OnHitDistanceEvent; // EffectManager
+    public static event Action<Vector3> OnHitContactEvent;  // 
 
     public StoneType stoneType;
     public Renderer objRenderer;
@@ -53,6 +55,7 @@ public class TargetStone : MonoBehaviour
             foreach (ContactPoint hitcontact in collision.contacts)
             {
                 VisualizeContact(hitcontact.point);
+                //OnHitContactEvent?.Invoke(hitcontact.point);
             }
 
             ContactPoint contact = collision.contacts[0];
@@ -62,6 +65,7 @@ public class TargetStone : MonoBehaviour
             {
                 float edgeDistance = EdgeDistanceCalculator.GetDistanceToNearestEdge(meshCollider, contactPoint);
                 Debug.Log("Distance to nearest edge: " + edgeDistance);
+                OnHitDistanceEvent.Invoke(edgeDistance);
             }
 
         }
@@ -76,9 +80,7 @@ public class TargetStone : MonoBehaviour
         marker.GetComponent<Renderer>().material.color = Color.red;
         Destroy(marker, 2f); 
     }
-       
-
-    
+        
    
 
     IEnumerator FadeOutObject()

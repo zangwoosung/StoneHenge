@@ -9,7 +9,7 @@ public class MainUI : MonoBehaviour
     public ProjectileSO projectileSO;
     [SerializeField] ProjectileLauncher myProjectileLauncher;
     [SerializeField] TargetStoneManager targetStoneManager;
-
+   
     [Header("UI"), Space(10)]
     [SerializeField] UIDocument _document;
     [SerializeField] StyleSheet _styleSheet;

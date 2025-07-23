@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public ZombiSpawner zombiSpawner;
     public TargetStoneManager targetStoneManager;
     public MainUI mainUI;   
+    public TimeStopper timeStopper;   
+    public TimeController timeController;   
 
     private void Start()
     {
@@ -32,6 +34,8 @@ public class GameManager : MonoBehaviour
     private void FlyingStone_OnMissionComplete()
     {
         mainUI.FlyingStone_OnMissionComplete();
+        timeController.TriggerSlowMotion();
+       // timeStopper.StopTimeTemporarily();
     }
 
     private void OnStageClearEvent()

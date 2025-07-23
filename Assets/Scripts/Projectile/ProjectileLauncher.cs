@@ -9,8 +9,21 @@ public class ProjectileLauncher : MonoBehaviour
     public LineRenderer lineRenderer;
     public int linePoints = 175;
     public float timeIntervalInPoints = 0.01f;
- 
+    [SerializeField] CameraFollow cameraFollow;
+
     public bool isDrawing=true;
+
+    private void Start()
+    {
+        FlyingStone.OnMissionComplete += OnMissionComplete;
+    }
+
+    private void OnMissionComplete()
+    {
+        lineRenderer.enabled = true;
+        
+    }
+
     void Update()
     {
         DrawTrajectory();
@@ -28,6 +41,7 @@ public class ProjectileLauncher : MonoBehaviour
 
     public void ThrowStone()
     {
+        lineRenderer.enabled = false;
         Quaternion rot = launchPoint.rotation;
         rot.x = projectileSO.angleX;
         rot.y = projectileSO.angleY;
@@ -35,14 +49,13 @@ public class ProjectileLauncher : MonoBehaviour
         var _projectile = Instantiate(projectile, launchPoint.position, rot);
         _projectile.GetComponent<Rigidbody>().linearVelocity = projectileSO.speed * launchPoint.up;
         _projectile.GetComponent<Rigidbody>().mass = projectileSO.mass;
-
+        cameraFollow.SetTarget(_projectile.transform);
     }
  
     void DrawTrajectory()
     {
         Vector3 origin = launchPoint.position;
         Vector3 startVelocity = projectileSO.speed * launchPoint.up;
-
 
         lineRenderer.positionCount = linePoints;
         float time = 0;
