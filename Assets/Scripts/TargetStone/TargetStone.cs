@@ -9,7 +9,7 @@ public enum StoneType
 }
 public class TargetStone : MonoBehaviour
 {
-    public static event Action<StoneType> OnHitByProjectile;
+    public static event Action<Transform, Transform> OnHitByProjectile;
     public static event Action<StoneType> OnKnockDownEvent;
     public static event Action<Vector3> OnKnockDownToZombiEvent;
     public static event Action<float>   OnHitDistanceEvent; // EffectManager
@@ -49,7 +49,7 @@ public class TargetStone : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Stone"))
         {
-            OnHitByProjectile?.Invoke(stoneType);
+            OnHitByProjectile?.Invoke(transform, collision.transform);
             isHit = true;
             
             foreach (ContactPoint hitcontact in collision.contacts)

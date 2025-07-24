@@ -17,17 +17,22 @@ public class FlyingStone : MonoBehaviour
         trail.startWidth = 0.2f;
         trail.endWidth = 0f;
     }
+
+    private void OnDisable()
+    {
+        OnMissionComplete?.Invoke();
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            OnMissionComplete?.Invoke();
+            //OnMissionComplete?.Invoke();
             Destroy(gameObject, 3);
         }
 
         if (collision.gameObject.CompareTag("Target"))
         {
-            OnMissionComplete?.Invoke();
+            //OnMissionComplete?.Invoke();
             Destroy(gameObject, 3);
         }
     }

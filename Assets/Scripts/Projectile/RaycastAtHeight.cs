@@ -35,7 +35,7 @@ public class RaycastAtHeight : MonoBehaviour
 
     public void Init(GameObject obj)
     {
-        Debug.Log("Init ");
+       
         objectB = obj;
         GetTargetHeight(objectB.GetComponent<Renderer>());
         isLocked = true;

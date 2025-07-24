@@ -51,7 +51,7 @@ public class ZombiSpawner : MonoBehaviour
     private void Start()
     {
         TargetStone.OnKnockDownToZombiEvent += TargetStone_OnKnockDownEvent;
-        TargetStone.OnHitByProjectile += TargetStone_OnHitByProjectile;
+        //TargetStone.OnHitByProjectile += TargetStone_OnHitByProjectile;
 
         SpawnZombi();
     }

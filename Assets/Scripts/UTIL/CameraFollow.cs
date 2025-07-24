@@ -40,11 +40,7 @@ public class CameraFollow : MonoBehaviour
         {            
             desiredPosition = originPos;
             smoothSpeed = 10f;
-        }
-
-       
-
-      
+        }  
         transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
         transform.LookAt(target);
     }

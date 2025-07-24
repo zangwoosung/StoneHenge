@@ -5,7 +5,7 @@ public class ProjectileLauncher : MonoBehaviour
     public GameObject projectile;
     public float launchSpeed = 10f;
     public ProjectileSO projectileSO;
-    [Header("****Trajectory Display****")]
+    [Header("Trajectory Display")]
     public LineRenderer lineRenderer;
     public int linePoints = 175;
     public float timeIntervalInPoints = 0.01f;
@@ -17,11 +17,9 @@ public class ProjectileLauncher : MonoBehaviour
     {
         FlyingStone.OnMissionComplete += OnMissionComplete;
     }
-
     private void OnMissionComplete()
     {
-        lineRenderer.enabled = true;
-        
+        lineRenderer.enabled = true;        
     }
 
     void Update()

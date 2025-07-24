@@ -2,26 +2,39 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.UIElements;
 public class MainUI : MonoBehaviour
 {
-    public Transform launchingPad;
-    public ProjectileSO projectileSO;
-    [SerializeField] ProjectileLauncher myProjectileLauncher;
-    [SerializeField] TargetStoneManager targetStoneManager;
-   
     [Header("UI"), Space(10)]
     [SerializeField] UIDocument _document;
     [SerializeField] StyleSheet _styleSheet;
+    [SerializeField] ProjectileLauncher myProjectileLauncher;
+    [SerializeField] TargetStoneManager targetStoneManager;
+    public Transform launchingPad;
+    public ProjectileSO projectileSO;
+    [Header("Images")]
+    public Sprite flyingStoneSprite;
+    public Sprite targetStoneSprite;
+   
+   
     VisualElement root;
     VisualElement container;
     Button throwBtn, drawBtn,quitBtn;
     Slider YSlider, ZSlider, speedSlider, massSlider;
 
-    private void Awake()
+
+    public void OnValidate()
     {
-        root = _document.rootVisualElement;
+        if (Application.isPlaying) return;
+        GenerateUI();
+    }
+    private void GenerateUI()
+    {
+
+        root = _document.rootVisualElement;       
         root.styleSheets.Add(_styleSheet);
+             
         root.Clear();
 
         container = UTIL.Create<VisualElement>("container");
@@ -33,10 +46,13 @@ public class MainUI : MonoBehaviour
         quitBtn.text = "Quit";
 
         YSlider = UTIL.Create<Slider>("my-slider");
+        YSlider.label = $"Y angle";
         ZSlider = UTIL.Create<Slider>("my-slider");
+        ZSlider.label = $"Z angle";
         massSlider = UTIL.Create<Slider>("my-slider");
+        massSlider.label = $"Mass";
         speedSlider = UTIL.Create<Slider>("my-slider");
-
+        speedSlider.label = $"Speed";
         VisualElement buttonContainer = UTIL.Create<VisualElement>("head-box");
 
         buttonContainer.Add(throwBtn);
@@ -54,8 +70,16 @@ public class MainUI : MonoBehaviour
 
     }
 
+    private void Awake()
+    {
+        root = _document.rootVisualElement;
+        root.styleSheets.Add(_styleSheet);
+
+    }
+
     private void Start()
     {
+        GenerateUI();
         Initialize();
         AddListener();
     }
@@ -106,13 +130,19 @@ public class MainUI : MonoBehaviour
         YSlider.value = rotation.y;
         ZSlider.value = rotation.z;
 
-        YSlider.label = "     ";
-        ZSlider.label = "     ";
-        speedSlider.label = "     ";
-        massSlider.label = "     ";
+       
 
         speedSlider.value = projectileSO.speed;
         massSlider.value = projectileSO.mass;
+
+        //image
+        // Create the image element
+        Image image = new Image();
+        image.sprite = flyingStoneSprite; // Assign your sprite here
+        image.scaleMode = ScaleMode.ScaleToFit;
+        image.style.flexGrow = 1;
+
+        throwBtn.Add(image);
     }
 
     void AddListener()
@@ -181,6 +211,7 @@ public class MainUI : MonoBehaviour
     }
     public void FlyingStone_OnMissionComplete()
     {
+        //TODO 시점 조정 
         container.visible = true;
     }
    
