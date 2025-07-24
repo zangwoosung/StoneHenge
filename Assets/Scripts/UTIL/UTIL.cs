@@ -8,9 +8,9 @@ using UnityEngine.UIElements;
 public class UTIL : MonoBehaviour
 {
 
-    
 
 
+    public string name;
 
 
     private static readonly System.Random random = new System.Random();
