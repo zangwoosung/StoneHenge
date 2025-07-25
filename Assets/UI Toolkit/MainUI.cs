@@ -27,7 +27,7 @@ public class MainUI : MonoBehaviour
     public void OnValidate()
     {
         if (Application.isPlaying) return;
-        GenerateUI();
+        //GenerateUI();
     }
     private void GenerateUI()
     {
@@ -139,7 +139,7 @@ public class MainUI : MonoBehaviour
         // Create the image element
         Image image = new Image();
         image.sprite = flyingStoneSprite; // Assign your sprite here
-        image.scaleMode = ScaleMode.ScaleToFit;
+        image.scaleMode = ScaleMode.StretchToFill;//  .ScaleToFit;
         image.style.flexGrow = 1;
 
         throwBtn.Add(image);
