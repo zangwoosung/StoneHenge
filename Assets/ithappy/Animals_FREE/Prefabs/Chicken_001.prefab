@@ -1242,7 +1242,7 @@ MonoBehaviour:
   m_WalkSpeed: 1
   m_RunSpeed: 50
   m_RotateSpeed: 245
-  m_Space: 1
+  m_Space: 0
   m_JumpHeight: 5
   m_VerticalID: Vert
   m_StateID: State

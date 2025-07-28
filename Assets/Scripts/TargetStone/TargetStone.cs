@@ -55,7 +55,7 @@ public class TargetStone : MonoBehaviour
             foreach (ContactPoint hitcontact in collision.contacts)
             {
                 VisualizeContact(hitcontact.point);
-                //OnHitContactEvent?.Invoke(hitcontact.point);
+                //Disappear?.Invoke(hitcontact.point);
             }
 
             ContactPoint contact = collision.contacts[0];

@@ -50,9 +50,17 @@ namespace Controller
         {
             m_WalkSpeed = Mathf.Max(m_WalkSpeed, 0f);
             m_RunSpeed = Mathf.Max(m_RunSpeed, m_WalkSpeed);
-
             m_Movement?.SetStats(m_WalkSpeed / 3.6f, m_RunSpeed / 3.6f, m_RotateSpeed, m_JumpHeight, m_Space);
         }
+
+        public void SetMovement(Vector2 vector2)
+        {
+            m_WalkSpeed += vector2.x;
+            m_RunSpeed += vector2.y;
+            m_Movement?.SetStats(m_WalkSpeed / 3.6f, m_RunSpeed / 3.6f, m_RotateSpeed, m_JumpHeight, m_Space);
+        }
+
+       
 
         private void Awake()
         {
