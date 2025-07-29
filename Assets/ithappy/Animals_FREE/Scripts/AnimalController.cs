@@ -1,27 +1,32 @@
 using Controller;
-
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
+using Unity.Transforms;
 using UnityEngine;
-
-
 public class AnimalController : MonoBehaviour
 {
-
     [SerializeField] List<GameObject> animals;
     [SerializeField] Transform container;
     [SerializeField] EffectOnAnimal effectOnAnimal;
     public float spacing = 2f; // Dist   
     Transform player;
-    int animalCount = 5;
-    Vector2 vec2 = new Vector2(-5, -5);
+    int animalCount = 5;    
 
     private void Start()
     {
+        TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent1; ;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         Initialize();
     }
+
+    private void TargetStone_OnKnockDownEvent1(StoneType obj)
+    {
+        RemoveCloseAnimals();
+    }
+
+   
 
     public void Initialize()
     {
@@ -29,15 +34,13 @@ public class AnimalController : MonoBehaviour
         EnableAnimals();
     }
 
-    void CollectAnimals()
+    void RemoveCloseAnimals()
     {
         List<Transform> allObjects = new List<Transform>();
-
         foreach (Transform child in container)
         {
             allObjects.Add(child);
         }
-
 
         List<Transform> closestObjects = allObjects
             .OrderBy(obj => Vector3.Distance(player.position, obj.position))
@@ -55,7 +58,7 @@ public class AnimalController : MonoBehaviour
     }
     public void SpawnAnimals()
     {
-
+        RemoveAllAnimals();
         int gridSize = Mathf.CeilToInt(Mathf.Pow(animalCount, 1f / 3f)); // Cube root for 3D grid
         int y = 1;
 
@@ -68,29 +71,44 @@ public class AnimalController : MonoBehaviour
                 GameObject clone = Instantiate(animals[UnityEngine.Random.Range(0, animals.Count)], position, rot);
                 clone.transform.SetParent(container, false);
                 clone.GetComponent<MovePlayerInput>().enabled = false;
-
-
             }
         }
     }
+
+    public void RemoveAllAnimals()
+    {
+        transform.Clear();
+    }
+
     public void EnableAnimals()
     {
         foreach (Transform child in container)
         {
             child.GetComponent<MovePlayerInput>().enabled = true;
         }
+    }
 
+    public void RunToPlayer()
+    {
+        foreach (Transform child in container)
+        {
+            Vector2 vec2 = new Vector2(0, 1);
+            child.GetComponent<MovePlayerInput>().GatherInputSample(vec2, true, false, player.transform.position);
+        }
+    }
+    public void SetSpeed(Vector2 vec2)
+    {
+        foreach (Transform child in container)
+        {           
+            child.GetComponent<MovePlayerInput>().SetSpeed(vec2);
+        }
     }
     
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            foreach (Transform child in container)
-            {
-                Vector2 vec2 = new Vector2(-10, -10);
-                child.GetComponent<MovePlayerInput>().SetSpeed(vec2);
-            }
+            
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -111,9 +129,7 @@ public class AnimalController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            CollectAnimals();
-
+            RemoveCloseAnimals();
         }
-
     }
 }

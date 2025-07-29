@@ -12,7 +12,7 @@ public class TargetStone : MonoBehaviour
     public static event Action<Transform, Transform> OnHitByProjectile;
     public static event Action<StoneType> OnKnockDownEvent;
     public static event Action<Vector3> OnKnockDownToZombiEvent;
-    public static event Action<float>   OnHitDistanceEvent; // EffectManager
+    public static event Action<Transform, float>   OnHitDistanceEvent; // EffectManager
     public static event Action<Vector3> OnHitContactEvent;  // 
 
     public StoneType stoneType;
@@ -65,7 +65,7 @@ public class TargetStone : MonoBehaviour
             {
                 float edgeDistance = EdgeDistanceCalculator.GetDistanceToNearestEdge(meshCollider, contactPoint);
                 Debug.Log("Distance to nearest edge: " + edgeDistance);
-                OnHitDistanceEvent.Invoke(edgeDistance);
+                OnHitDistanceEvent.Invoke(transform, edgeDistance);
             }
 
         }

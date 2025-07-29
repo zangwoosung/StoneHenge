@@ -12,9 +12,9 @@ public class CemaraWork : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        TargetStone.OnHitByProjectile += TargetStone_OnHitByProjectile;
-        TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
-        _secondCemera.enabled = false;
+        //TargetStone.OnHitByProjectile += TargetStone_OnHitByProjectile;
+        //TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
+       // _secondCemera.enabled = false;
     }
 
     void AddOneMoreCamera()
@@ -45,16 +45,16 @@ public class CemaraWork : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (!targetStone || !flyingStone) return;
+    //void Update()
+    //{
+    //    //if (!targetStone || !flyingStone) return;
 
-        float distance = Vector3.Distance(targetStone.position, flyingStone.position);
-        Debug.Log("Distance between objects: " + distance);
+    //    //float distance = Vector3.Distance(targetStone.position, flyingStone.position);
+    //    //Debug.Log("Distance between objects: " + distance);
 
-        if (distance > 1f)
-        {
-            AddOneMoreCamera();
-        }
-    }
+    //    //if (distance > 1f)
+    //    //{
+    //    //    AddOneMoreCamera();
+    //    //}
+    //}
 }

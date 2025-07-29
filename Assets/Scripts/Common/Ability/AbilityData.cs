@@ -29,7 +29,7 @@ class DamageEffect : AbilityEffect {
     public int amount;
 
     public override void Execute(GameObject caster, GameObject target) {
-        target.GetComponent<Health>().ApplyDamage(amount);
+        //target.GetComponent<Health>().ApplyDamage(amount);
         Debug.Log($"{caster.name} dealt {amount} damage to {target.name}");
         
     }
@@ -41,7 +41,9 @@ class KnockbackEffect : AbilityEffect {
 
     public override void Execute(GameObject caster, GameObject target) {
         var dir = (target.transform.position - caster.transform.position).normalized;
+        
         target.GetComponent<Rigidbody>().AddForce(dir * force, ForceMode.Impulse);
+        
         Debug.Log($"{caster.name} knocked back {target.name} with force {force}");
     }
 }

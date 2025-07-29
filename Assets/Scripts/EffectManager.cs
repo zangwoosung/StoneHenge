@@ -25,7 +25,7 @@ public class EffectManager : MonoBehaviour
         Destroy(psInstance, ps.main.duration + ps.main.startLifetime.constant);
     }
 
-    public void OnHitDistanceEvent(float obj)
+    public void OnHitDistanceEvent(Transform obj, float degree)
     {
 
     }

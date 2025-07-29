@@ -11,6 +11,7 @@ public class MainUI : MonoBehaviour
     [SerializeField] StyleSheet _styleSheet;
     [SerializeField] ProjectileLauncher myProjectileLauncher;
     [SerializeField] TargetStoneManager targetStoneManager;
+    [SerializeField] AnimalController animalController;
     public Transform launchingPad;
     public ProjectileSO projectileSO;
     [Header("Images")]
@@ -27,7 +28,7 @@ public class MainUI : MonoBehaviour
     public void OnValidate()
     {
         if (Application.isPlaying) return;
-        //GenerateUI();
+        
     }
     private void GenerateUI()
     {
@@ -153,6 +154,7 @@ public class MainUI : MonoBehaviour
 
         drawBtn.RegisterCallback<MouseEnterEvent>(evt =>
         {
+
            
             drawBtn.style.backgroundColor = new StyleColor(Color.green);
             myProjectileLauncher.isDrawing = true;
@@ -206,6 +208,7 @@ public class MainUI : MonoBehaviour
 
     private void OnThrowButtonClick()
     {
+        animalController.RunToPlayer();
         myProjectileLauncher.ThrowStone();
         container.visible = false;
     }

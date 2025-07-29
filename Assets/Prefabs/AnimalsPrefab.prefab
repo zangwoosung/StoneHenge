@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 7380974963453969818}
   - component: {fileID: 6404899473551289326}
   m_Layer: 0
-  m_Name: AnimalManager
+  m_Name: AnimalController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,6 @@ MonoBehaviour:
   container: {fileID: 8330426532398081349}
   effectOnAnimal: {fileID: 5165756404610229389}
   spacing: 1
-  player: {fileID: 0}
 --- !u!1 &8432739820882656761
 GameObject:
   m_ObjectHideFlags: 0

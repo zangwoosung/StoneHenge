@@ -6,9 +6,10 @@ public class RaycastDrawer : MonoBehaviour
 {
     public static event Action OnRayCastHitZombiEvent;
     public bool isHasHit=false;
+    public AnimalController animalController;
     void Update()
     {
-       // if (isHasHit) return; 
+        if (isHasHit) return; 
         Vector3 origin = transform.position;
         Vector3 direction = transform.forward;
         float maxDistance = 100f;
@@ -19,8 +20,9 @@ public class RaycastDrawer : MonoBehaviour
             Debug.Log("hit name " + hit.transform.name);
             Debug.DrawLine(origin, hit.point, Color.red); 
             Destroy(hit.transform.gameObject);
+            animalController.RemoveAllAnimals();
             OnRayCastHitZombiEvent?.Invoke();
-            //isHasHit = true;
+            isHasHit = true;
         }
         else
         {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AbilityData
   m_EditorClassIdentifier: 
   label: AbilityData
-  vfxPrefab: {fileID: 100002, guid: 6ecf76dc4f268d340b2666896a954bcc, type: 3}
+  vfxPrefab: {fileID: 100000, guid: 4ecfa3d3919108f4fbff80d1c4d920a1, type: 3}
   effects:
   - rid: 9022036700251816025
   - rid: 9022036700251816019
@@ -23,7 +23,7 @@ MonoBehaviour:
     - rid: 9022036700251816019
       type: {class: KnockbackEffect, ns: , asm: Assembly-CSharp}
       data:
-        force: 1
+        force: 100
     - rid: 9022036700251816025
       type: {class: DamageEffect, ns: , asm: Assembly-CSharp}
       data:
