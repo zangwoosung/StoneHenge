@@ -136,8 +136,7 @@ public class MainUI : MonoBehaviour
         speedSlider.value = projectileSO.speed;
         massSlider.value = projectileSO.mass;
 
-        //image
-        // Create the image element
+      
         Image image = new Image();
         image.sprite = flyingStoneSprite; // Assign your sprite here
         image.scaleMode = ScaleMode.StretchToFill;//  .ScaleToFit;

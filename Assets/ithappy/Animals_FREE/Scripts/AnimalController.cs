@@ -77,7 +77,8 @@ public class AnimalController : MonoBehaviour
 
     public void RemoveAllAnimals()
     {
-        transform.Clear();
+        container.Clear();
+        Debug.Log("all removed!");
     }
 
     public void EnableAnimals()
