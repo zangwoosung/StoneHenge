@@ -903,9 +903,10 @@ GameObject:
   - component: {fileID: 6397291155531275066}
   - component: {fileID: 6397291155531275061}
   - component: {fileID: 6397291155531275060}
+  - component: {fileID: 1794226056378351836}
   m_Layer: 0
   m_Name: Kitty_001
-  m_TagString: Untagged
+  m_TagString: Zombi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -989,7 +990,7 @@ MonoBehaviour:
   m_WalkSpeed: 1
   m_RunSpeed: 4
   m_RotateSpeed: 245
-  m_Space: 0
+  m_Space: 1
   m_JumpHeight: 5
   m_VerticalID: Vert
   m_StateID: State
@@ -1018,6 +1019,29 @@ MonoBehaviour:
   m_MouseX: Mouse X
   m_MouseY: Mouse Y
   m_MouseScroll: Mouse ScrollWheel
+--- !u!136 &1794226056378351836
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6397291155531275063}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.26
+  m_Height: 0.64
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.31, z: 0}
 --- !u!1 &6499904794721092959
 GameObject:
   m_ObjectHideFlags: 0

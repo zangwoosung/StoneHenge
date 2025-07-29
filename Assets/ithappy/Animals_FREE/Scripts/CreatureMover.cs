@@ -43,7 +43,9 @@ namespace Controller
         private bool m_IsMoving;
 
         public Vector2 Axis => m_Axis;
-        public Vector3 Target => m_Target;
+        public Vector3 Target => m_Target;   
+                    
+
         public bool IsRun => m_IsRun;
 
         private void OnValidate()
@@ -53,6 +55,8 @@ namespace Controller
             m_Movement?.SetStats(m_WalkSpeed / 3.6f, m_RunSpeed / 3.6f, m_RotateSpeed, m_JumpHeight, m_Space);
         }
 
+
+       
         public void SetMovement(Vector2 vector2)
         {
             m_WalkSpeed += vector2.x;

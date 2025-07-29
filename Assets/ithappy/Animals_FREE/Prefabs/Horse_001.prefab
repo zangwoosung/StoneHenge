@@ -649,9 +649,10 @@ GameObject:
   - component: {fileID: 3851015956068934393}
   - component: {fileID: 3851015956068934392}
   - component: {fileID: 3851015956068934395}
+  - component: {fileID: 1051753818387248180}
   m_Layer: 0
   m_Name: Horse_001
-  m_TagString: Untagged
+  m_TagString: Zombi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -735,7 +736,7 @@ MonoBehaviour:
   m_WalkSpeed: 1
   m_RunSpeed: 4
   m_RotateSpeed: 245
-  m_Space: 0
+  m_Space: 1
   m_JumpHeight: 5
   m_VerticalID: Vert
   m_StateID: State
@@ -764,6 +765,29 @@ MonoBehaviour:
   m_MouseX: Mouse X
   m_MouseY: Mouse Y
   m_MouseScroll: Mouse ScrollWheel
+--- !u!136 &1051753818387248180
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3851015956068934394}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.16
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.09, z: 0}
 --- !u!1 &3955406351709833468
 GameObject:
   m_ObjectHideFlags: 0

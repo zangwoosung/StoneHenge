@@ -16,9 +16,9 @@ public class RaycastDrawer : MonoBehaviour
        
         if (Physics.Raycast(origin, direction, out RaycastHit hit, maxDistance))
         {
+            Debug.Log("hit name " + hit.transform.name);
             Debug.DrawLine(origin, hit.point, Color.red); 
             Destroy(hit.transform.gameObject);
-
             OnRayCastHitZombiEvent?.Invoke();
             //isHasHit = true;
         }

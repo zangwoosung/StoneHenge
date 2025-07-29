@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Controller
 {
@@ -57,16 +58,22 @@ namespace Controller
             m_MouseDelta = new Vector2(Input.GetAxis(m_MouseX), Input.GetAxis(m_MouseY));
             m_Scroll = Input.GetAxis(m_MouseScroll);
         }
-        public void GatherInputSample(Vector2 vec2, bool isrun, bool isjump)
+        public void GatherInputSample(Vector2 vec2, bool isrun, bool isjump, Vector3 target)
         {
             m_Axis = vec2;// new Vector2(Input.GetAxis(m_HorizontalAxis), Input.GetAxis(m_VerticalAxis));
             Debug.Log("m_Axis:: " + m_Axis);
             m_IsRun = isrun; Input.GetKey(m_RunKey);
             m_IsJump = isjump;// Input.GetButton(m_JumpButton);
 
-            m_Target = (m_Camera == null) ? Vector3.zero : m_Camera.Target;
+            //m_Target = (m_Camera == null) ? Vector3.zero : m_Camera.Target;
+            m_Target = target;// new Vector3(10, 1, 10);//.zero : m_Camera.Target;
+            Debug.Log("m_Target " + m_Target.ToString());
             m_MouseDelta = new Vector2(Input.GetAxis(m_MouseX), Input.GetAxis(m_MouseY));
             m_Scroll = Input.GetAxis(m_MouseScroll);
+        }
+        public void SetSpeed(Vector2 speed)
+        {
+            m_Mover.SetMovement(speed);
         }
         public void BindMover(CreatureMover mover)
         {

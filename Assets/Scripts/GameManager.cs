@@ -10,27 +10,34 @@ public enum ItemTag
 }
 public class GameManager : MonoBehaviour
 {
-    public ProjectileSO projectileSO;
-    public ZombiSpawner zombiSpawner;
+    public ProjectileSO projectileSO;   
     public TargetStoneManager targetStoneManager;
-    public MainUI mainUI;   
-    public TimeStopper timeStopper;   
+    public MainUI mainUI;      
     public TimeController timeController;   
-
+    public AnimalController animalController;
+    
     private void Start()
+    {  
+        targetStoneManager.CreateOneTargeStone();
+        animalController.Initialize();
+    }
+    private void OnEnable()
     {
-       
-
         RaycastDrawer.OnRayCastHitZombiEvent += OnRayCastHitZombiEventHandler;
         TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
         TargetStoneManager.OnStageClearEvent += OnStageClearEvent;
         FlyingStone.OnMissionComplete += FlyingStone_OnMissionComplete;
 
-        targetStoneManager.CreateOneTargeStone();
-       // zombiSpawner.SpawnZombi();
+    }
+    private void OnDisable()
+    {
+        RaycastDrawer.OnRayCastHitZombiEvent -= OnRayCastHitZombiEventHandler;
+        TargetStone.OnKnockDownEvent -= TargetStone_OnKnockDownEvent;
+        TargetStoneManager.OnStageClearEvent -= OnStageClearEvent;
+        FlyingStone.OnMissionComplete -= FlyingStone_OnMissionComplete;
+
 
     }
-
     private void FlyingStone_OnMissionComplete()
     {
         mainUI.FlyingStone_OnMissionComplete();
