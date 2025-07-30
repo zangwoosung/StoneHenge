@@ -1157,7 +1157,7 @@ GameObject:
   - component: {fileID: 8881504610387854121}
   - component: {fileID: 8881504610387854134}
   - component: {fileID: 2190994211119626566}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Chicken_001
   m_TagString: Zombi
   m_Icon: {fileID: 0}

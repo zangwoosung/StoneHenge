@@ -1,30 +1,32 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class TargetStoneManager : MonoBehaviour
 {
-    public static event Action OnStageClearEvent;
+    public event Action OnStageClearEvent;
     public GameObject stonePrefab;
     [SerializeField] QuadCreator quadCreator;
     [SerializeField] RaycastAtHeight raycastAtHeight;
     [SerializeField] int count = default(int);
-
+    [SerializeField] GameObject worldUIPrefab;
     Vector3 scale = new Vector3(1f, 1f, 1f);
     Vector3 pos;
     float newMass = 1;
     int clearCount = 3;
 
-
-    private void OnEnable()
+    TextMeshProUGUI label01;
+    TextMeshProUGUI label02;
+    public void OnReset()
     {
-       
 
+        count = 0;
     }
     private void Start()
     {
         quadCreator.CreateQuad();
         TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
-        raycastAtHeight.OnStoneHasFallenEvent += RaycastAtHeight_OnStoneHasFallenEvent;   
+        raycastAtHeight.OnStoneHasFallenEvent += RaycastAtHeight_OnStoneHasFallenEvent;
     }
 
     private void RaycastAtHeight_OnStoneHasFallenEvent()
@@ -48,7 +50,6 @@ public class TargetStoneManager : MonoBehaviour
         {
             Destroy(item);
         }
-       // quadCreator.CreateQuad();
         CreateOneTargeStone();
     }
 
@@ -66,8 +67,19 @@ public class TargetStoneManager : MonoBehaviour
         Rigidbody rb = stonePrefab.GetComponent<Rigidbody>();
         if (rb != null) rb.mass = newMass;
 
-       var clone =  Instantiate(stonePrefab, pos, Quaternion.identity);
+        var clone = Instantiate(stonePrefab, pos, Quaternion.identity);
         raycastAtHeight.Init(clone);
+
+
+        GameObject uiClone = Instantiate(worldUIPrefab, clone.transform.position, Quaternion.identity);
+        //uiClone.transform.SetParent(clone.transform);
+        //uiClone.GetComponentInChildren<TextMeshProUGUI>("label01").text="aa"
+        uiClone.GetComponentInChildren<DisplayOnStone>().SetLabel();
+        uiClone.transform.SetParent(null);
+        //label01 = GameObject.Find("label01").GetComponent<TextMeshProUGUI>();
+        //label02 = GameObject.Find("label02").GetComponent<TextMeshProUGUI>();
+        //label01.text = "CCCC";
+        //label02.text = "DDD";
     }
 
     public void ResetValue()
@@ -77,12 +89,8 @@ public class TargetStoneManager : MonoBehaviour
 
         //mass
         newMass += 1;
-
         quadCreator.CreateQuad();
-        
 
     }
-
-   
 
 }

@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 4203687711656398374}
   - component: {fileID: 8592144788571991367}
   - component: {fileID: 3473599116725687448}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dog_001
   m_TagString: Zombi
   m_Icon: {fileID: 0}

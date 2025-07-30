@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class RaycastDrawer : MonoBehaviour
 {
-    public static event Action OnRayCastHitZombiEvent;
+    public  event Action OnRayCastHitAnimalEvent;
     public bool isHasHit=false;
     public AnimalController animalController;
+
+    
     void Update()
     {
         if (isHasHit) return; 
@@ -21,7 +23,7 @@ public class RaycastDrawer : MonoBehaviour
             Debug.DrawLine(origin, hit.point, Color.red); 
             Destroy(hit.transform.gameObject);
             animalController.RemoveAllAnimals();
-            OnRayCastHitZombiEvent?.Invoke();
+            OnRayCastHitAnimalEvent?.Invoke();
             isHasHit = true;
         }
         else

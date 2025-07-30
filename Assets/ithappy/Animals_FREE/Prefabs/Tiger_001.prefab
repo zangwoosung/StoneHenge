@@ -933,7 +933,7 @@ GameObject:
   - component: {fileID: 5883155896844355916}
   - component: {fileID: 5883155896844355917}
   - component: {fileID: 1629458495355086291}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tiger_001
   m_TagString: Zombi
   m_Icon: {fileID: 0}

@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59e875d4f76792499cd96953d438cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldUIPrefab: {fileID: 2161830156970243373, guid: 04d09cde1ae0e0c49859ab8dec963553, type: 3}
   stoneType: 0
   objRenderer: {fileID: 5804164083507292227}
   offset: 30

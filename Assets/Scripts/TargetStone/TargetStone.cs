@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 public enum StoneType
 {
@@ -11,10 +12,10 @@ public class TargetStone : MonoBehaviour
 {
     public static event Action<Transform, Transform> OnHitByProjectile;
     public static event Action<StoneType> OnKnockDownEvent;
-    public static event Action<Vector3> OnKnockDownToZombiEvent;
+    public static event Action<Vector3> OnKnockDownToAnimalEvent;
     public static event Action<Transform, float>   OnHitDistanceEvent; // EffectManager
     public static event Action<Vector3> OnHitContactEvent;  // 
-
+   
     public StoneType stoneType;
     public Renderer objRenderer;
     public float offset = 30f;
@@ -23,6 +24,9 @@ public class TargetStone : MonoBehaviour
     Color originalColor;
     public bool isHit = false;
     MeshCollider meshCollider;
+
+    TextMeshProUGUI label01;
+    TextMeshProUGUI label02;
     private void OnEnable()
     {
         RaycastAtHeight.OnNoStoneStandingEvent += OnNoStoneStandingEvent;
@@ -38,12 +42,15 @@ public class TargetStone : MonoBehaviour
 
     private void OnNoStoneStandingEvent()
     {
+        OnKnockDownToAnimalEvent?.Invoke(transform.position);
         StartCoroutine(FadeOutObject());
     }
 
     private void Start()
     {
         originalColor = objRenderer.material.color;
+       
+
     }
     private void OnCollisionEnter(Collision collision)
     {

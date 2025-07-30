@@ -904,7 +904,7 @@ GameObject:
   - component: {fileID: 6397291155531275061}
   - component: {fileID: 6397291155531275060}
   - component: {fileID: 1794226056378351836}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Kitty_001
   m_TagString: Zombi
   m_Icon: {fileID: 0}

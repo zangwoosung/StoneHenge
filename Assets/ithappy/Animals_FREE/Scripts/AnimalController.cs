@@ -16,22 +16,25 @@ public class AnimalController : MonoBehaviour
 
     private void Start()
     {
-        TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent1; ;
+        TargetStone.OnKnockDownToAnimalEvent += TargetStone_OnKnockDownToAnimalEvent;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        Initialize();
+       // Initialize();
     }
 
-    private void TargetStone_OnKnockDownEvent1(StoneType obj)
+    private void TargetStone_OnKnockDownToAnimalEvent(Vector3 obj)
     {
         RemoveCloseAnimals();
-    }
-
-   
+    }     
 
     public void Initialize()
     {
         SpawnAnimals();
         EnableAnimals();
+    }
+
+    public void TakeBreak()
+    {
+
     }
 
     void RemoveCloseAnimals()

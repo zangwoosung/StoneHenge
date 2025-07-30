@@ -1028,7 +1028,7 @@ GameObject:
   - component: {fileID: 7922649801668778611}
   - component: {fileID: 7922649801668778604}
   - component: {fileID: 8734794965653575812}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Deer_001
   m_TagString: Zombi
   m_Icon: {fileID: 0}

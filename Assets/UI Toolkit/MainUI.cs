@@ -2,42 +2,37 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using UnityEngine.UIElements;
 public class MainUI : MonoBehaviour
 {
     [Header("UI"), Space(10)]
     [SerializeField] UIDocument _document;
     [SerializeField] StyleSheet _styleSheet;
-    [SerializeField] ProjectileLauncher myProjectileLauncher;
-    [SerializeField] TargetStoneManager targetStoneManager;
-    [SerializeField] AnimalController animalController;
-    public Transform launchingPad;
-    public ProjectileSO projectileSO;
+    [Header("Class"), Space(10)]
+    [SerializeField] GameManager gameManager;
+   // [SerializeField] ProjectileLauncher myProjectileLauncher;
+
+    [SerializeField] Transform launchingPad;
+    [SerializeField] ProjectileSO projectileSO;
     [Header("Images")]
-    public Sprite flyingStoneSprite;
-    public Sprite targetStoneSprite;
+    [SerializeField] Sprite flyingStoneSprite;
+    [SerializeField] Sprite targetStoneSprite;
    
    
     VisualElement root;
     VisualElement container;
     Button throwBtn, drawBtn,quitBtn;
     Slider YSlider, ZSlider, speedSlider, massSlider;
-
-
-    public void OnValidate()
+      
+    private void Awake()
     {
-        if (Application.isPlaying) return;
-        
-    }
-    private void GenerateUI()
-    {
-
-        root = _document.rootVisualElement;       
+        root = _document.rootVisualElement;
         root.styleSheets.Add(_styleSheet);
-             
         root.Clear();
 
+    }
+    private void GenerateUI()
+    {      
         container = UTIL.Create<VisualElement>("container");
         drawBtn = UTIL.Create<Button>("button");
         throwBtn = UTIL.Create<Button>("button");
@@ -59,23 +54,12 @@ public class MainUI : MonoBehaviour
         buttonContainer.Add(throwBtn);
         buttonContainer.Add(drawBtn);
         buttonContainer.Add(quitBtn);
-
         container.Add(buttonContainer);
-
-
         container.Add(YSlider);
         container.Add(ZSlider);
         container.Add(massSlider);
         container.Add(speedSlider);
         root.Add(container);
-
-    }
-
-    private void Awake()
-    {
-        root = _document.rootVisualElement;
-        root.styleSheets.Add(_styleSheet);
-
     }
 
     private void Start()
@@ -91,10 +75,8 @@ public class MainUI : MonoBehaviour
         list.Add("WOW");
         list.Add("You Won");
         ShowPopup(list, WhenYouWin);
-
     }
-
-    public void OnRayCastHitZombiEventHandler() 
+    public void OnUserLostState() 
     {
         List<string> list = new List<string>();
         list.Add("WOW");
@@ -103,12 +85,13 @@ public class MainUI : MonoBehaviour
     }
 
     void WhenYouLose()
-    {        
+    {
+        gameManager.ResumeGame();
         Debug.Log("Game again!");
     }
     void WhenYouWin()
     {
-        targetStoneManager.CreateOneTargeStone();
+        gameManager.ResumeGame();
     }
     public void TargetStone_OnKnockDownEvent(StoneType obj) //stage clear
     {
@@ -152,18 +135,14 @@ public class MainUI : MonoBehaviour
         quitBtn.clicked += OnQuitButtonClick;
 
         drawBtn.RegisterCallback<MouseEnterEvent>(evt =>
-        {
-
-           
+        {           
             drawBtn.style.backgroundColor = new StyleColor(Color.green);
-            myProjectileLauncher.isDrawing = true;
+            gameManager.DrawLine();
         });
 
         drawBtn.RegisterCallback<MouseLeaveEvent>(evt =>
-        {
-           
-            drawBtn.style.backgroundColor = new StyleColor(Color.white);
-           // myProjectileLauncher.isDrawing = false;
+        {           
+            drawBtn.style.backgroundColor = new StyleColor(Color.white);          
         });
 
         YSlider.RegisterValueChangedCallback(evt =>
@@ -207,8 +186,8 @@ public class MainUI : MonoBehaviour
 
     private void OnThrowButtonClick()
     {
-        animalController.RunToPlayer();
-        myProjectileLauncher.ThrowStone();
+        gameManager.ThrowingStone(); 
+       // myProjectileLauncher.ThrowStone();
         container.visible = false;
     }
     public void FlyingStone_OnMissionComplete()
@@ -253,7 +232,6 @@ public class MainUI : MonoBehaviour
         element.AddToClassList("fade-hidden");
         yield return new WaitForSeconds(0.5f);
         element.RemoveFromHierarchy();
-
     }
 
 }

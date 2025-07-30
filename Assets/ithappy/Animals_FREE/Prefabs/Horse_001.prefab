@@ -650,7 +650,7 @@ GameObject:
   - component: {fileID: 3851015956068934392}
   - component: {fileID: 3851015956068934395}
   - component: {fileID: 1051753818387248180}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Horse_001
   m_TagString: Zombi
   m_Icon: {fileID: 0}

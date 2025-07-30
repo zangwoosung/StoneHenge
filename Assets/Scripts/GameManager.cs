@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemTag
@@ -10,54 +9,73 @@ public enum ItemTag
 }
 public class GameManager : MonoBehaviour
 {
-    public ProjectileSO projectileSO;   
+    public ProjectileSO projectileSO;
     public TargetStoneManager targetStoneManager;
-    public MainUI mainUI;      
-    public TimeController timeController;   
+    public TimeController timeController;
     public AnimalController animalController;
-    
+    public RaycastDrawer rayCastDrawer;
+    public ProjectileLauncher myProjectileLauncher;
+    public MainUI mainUI;
+
+    private void OnEnable()
+    {
+        TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
+        FlyingStone.OnMissionComplete += FlyingStone_OnMissionComplete;
+    }
+
     private void Start()
-    {  
+    {
+        targetStoneManager.OnStageClearEvent += OnStageClearEvent;
+        rayCastDrawer.OnRayCastHitAnimalEvent += OnStageLostEvent;
         targetStoneManager.CreateOneTargeStone();
         animalController.Initialize();
     }
-    private void OnEnable()
-    {
-        RaycastDrawer.OnRayCastHitZombiEvent += OnRayCastHitZombiEventHandler;
-        TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
-        TargetStoneManager.OnStageClearEvent += OnStageClearEvent;
-        FlyingStone.OnMissionComplete += FlyingStone_OnMissionComplete;
 
-    }
     private void OnDisable()
     {
-        RaycastDrawer.OnRayCastHitZombiEvent -= OnRayCastHitZombiEventHandler;
         TargetStone.OnKnockDownEvent -= TargetStone_OnKnockDownEvent;
-        TargetStoneManager.OnStageClearEvent -= OnStageClearEvent;
         FlyingStone.OnMissionComplete -= FlyingStone_OnMissionComplete;
-
-
     }
     private void FlyingStone_OnMissionComplete()
     {
         mainUI.FlyingStone_OnMissionComplete();
         timeController.TriggerSlowMotion();
-       
     }
 
     private void OnStageClearEvent()
     {
-       mainUI.OnStageClearEvent();   
-    }
+        mainUI.OnStageClearEvent();
+        timeController.OnReset();
+        animalController.RemoveAllAnimals();
 
+    }
+    private void OnStageLostEvent()
+    {
+        mainUI.OnUserLostState();
+        animalController.RemoveAllAnimals();
+        timeController.OnReset();
+
+    }
     private void TargetStone_OnKnockDownEvent(StoneType type)
     {
-       mainUI.TargetStone_OnKnockDownEvent((StoneType)type);
+        mainUI.TargetStone_OnKnockDownEvent((StoneType)type);
     }
 
-    private void OnRayCastHitZombiEventHandler()
+    public void ThrowingStone()
     {
-        mainUI.OnRayCastHitZombiEventHandler();
-       //What to do next? 
+        animalController.RunToPlayer();
+        myProjectileLauncher.ThrowStone();
+    }
+    public void DrawLine()
+    {
+        myProjectileLauncher.isDrawing = true;
+    }
+
+    public  void ResumeGame()
+    {
+        rayCastDrawer.isHasHit = false;
+        animalController.Initialize();
+        targetStoneManager.OnReset();   
+        targetStoneManager.CreateOneTargeStone();
     }
 }

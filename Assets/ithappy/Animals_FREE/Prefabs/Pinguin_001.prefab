@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 2197702747431416025}
   - component: {fileID: 2197702747431416006}
   - component: {fileID: 8043310749326685034}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pinguin_001
   m_TagString: Zombi
   m_Icon: {fileID: 0}

@@ -50,7 +50,7 @@ public class SupportingRole: MonoBehaviour
 
     private void Start()
     {
-        TargetStone.OnKnockDownToZombiEvent += TargetStone_OnKnockDownEvent;
+        //TargetStone.OnKnockDownToAnimalEvent += TargetStone_OnKnockDownEvent;
         //TargetStone.OnHitByProjectile += TargetStone_OnHitByProjectile;
 
         SpawnZombi();
