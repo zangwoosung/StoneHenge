@@ -861,57 +861,6 @@ Transform:
   - {fileID: 1327140919}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &230113512
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 230113514}
-  - component: {fileID: 230113513}
-  m_Layer: 5
-  m_Name: UIDocument World
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &230113513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 230113512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 18464612d07cabc4f85185e82bac8f6f, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 021e49e42298433428c1c3351b410816, type: 3}
-  m_SortingOrder: 0
-  m_WorldSpaceSizeMode: 1
-  m_WorldSpaceWidth: 1920
-  m_WorldSpaceHeight: 1080
---- !u!4 &230113514
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 230113512}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &250789762
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,7 +943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2230ea7d9b799f44eba7d40cb80d4ce7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stonePrefab: {fileID: 1418860561918544383, guid: 21440718d3f07344e841a649af5745d8, type: 3}
+  stonePrefab: {fileID: 3883431944847402139, guid: b2f8075a3093da84cae4a84a1e4eeb6b, type: 3}
   quadCreator: {fileID: 2110096914}
   raycastAtHeight: {fileID: 598410904}
   count: 0
@@ -2854,4 +2803,3 @@ SceneRoots:
   - {fileID: 250789763}
   - {fileID: 997265376}
   - {fileID: 1888343071}
-  - {fileID: 230113514}

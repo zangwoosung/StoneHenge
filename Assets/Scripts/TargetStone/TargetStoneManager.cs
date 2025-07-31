@@ -71,15 +71,7 @@ public class TargetStoneManager : MonoBehaviour
         raycastAtHeight.Init(clone);
 
 
-        GameObject uiClone = Instantiate(worldUIPrefab, clone.transform.position, Quaternion.identity);
-        //uiClone.transform.SetParent(clone.transform);
-        //uiClone.GetComponentInChildren<TextMeshProUGUI>("label01").text="aa"
-        uiClone.GetComponentInChildren<DisplayOnStone>().SetLabel();
-        uiClone.transform.SetParent(null);
-        //label01 = GameObject.Find("label01").GetComponent<TextMeshProUGUI>();
-        //label02 = GameObject.Find("label02").GetComponent<TextMeshProUGUI>();
-        //label01.text = "CCCC";
-        //label02.text = "DDD";
+    
     }
 
     public void ResetValue()

@@ -15,7 +15,10 @@ public class TargetStone : MonoBehaviour
     public static event Action<Vector3> OnKnockDownToAnimalEvent;
     public static event Action<Transform, float>   OnHitDistanceEvent; // EffectManager
     public static event Action<Vector3> OnHitContactEvent;  // 
-   
+
+    public TextMeshProUGUI label01;
+    public TextMeshProUGUI label02;
+
     public StoneType stoneType;
     public Renderer objRenderer;
     public float offset = 30f;
@@ -25,13 +28,13 @@ public class TargetStone : MonoBehaviour
     public bool isHit = false;
     MeshCollider meshCollider;
 
-    TextMeshProUGUI label01;
-    TextMeshProUGUI label02;
+   
     private void OnEnable()
     {
         RaycastAtHeight.OnNoStoneStandingEvent += OnNoStoneStandingEvent;
         meshCollider = GetComponent<MeshCollider>();
-
+        label01.text = "¿‹µπ";
+        label02.text = "100 mass";
         Vector3 highestPoint = gameObject.GetComponent<Collider>().bounds.max;
       
     }
