@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5906954573775580975}
   - component: {fileID: -8928698680969335638}
   - component: {fileID: 5434929337674386700}
+  - component: {fileID: 3185027887152398788}
   m_Layer: 0
   m_Name: FlyingStone01
   m_TagString: Stone
@@ -150,3 +151,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3125117960378858754, guid: 9813fad1fa6eee1409adfe66ffff8a11, type: 3}
+--- !u!114 &3185027887152398788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7105557981267009923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b59e875d4f76792499cd96953d438cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stoneType: 0
+  objRenderer: {fileID: 472453840893106495}
+  offset: 30
+  isHit: 0

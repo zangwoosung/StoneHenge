@@ -20,7 +20,7 @@ public class DamageNumberSpawner : MonoBehaviour {
     WorldSpaceUIDocument Create() => Instantiate(uiDocumentPrefab, transform, true);
     void OnTake(WorldSpaceUIDocument uiDocument) => uiDocument.gameObject.SetActive(true);
     void OnReturn(WorldSpaceUIDocument uiDocument) => uiDocument.gameObject.SetActive(false);
-    void OnDestroy(WorldSpaceUIDocument uiDocument) {
+    private void OnDestroy(WorldSpaceUIDocument uiDocument) {
         if (uiDocument == null) return;
         Destroy(uiDocument.gameObject);
     }

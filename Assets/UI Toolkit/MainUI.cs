@@ -10,7 +10,7 @@ public class MainUI : MonoBehaviour
     [SerializeField] StyleSheet _styleSheet;
     [Header("Class"), Space(10)]
     [SerializeField] GameManager gameManager;
-   // [SerializeField] ProjectileLauncher myProjectileLauncher;
+  
 
     [SerializeField] Transform launchingPad;
     [SerializeField] ProjectileSO projectileSO;
@@ -29,7 +29,12 @@ public class MainUI : MonoBehaviour
         root = _document.rootVisualElement;
         root.styleSheets.Add(_styleSheet);
         root.Clear();
-
+    }
+    public void Initialize()
+    {
+        GenerateUI();
+        SetupElements();
+        AddListener();
     }
     private void GenerateUI()
     {      
@@ -62,12 +67,7 @@ public class MainUI : MonoBehaviour
         root.Add(container);
     }
 
-    private void Start()
-    {
-        GenerateUI();
-        Initialize();
-        AddListener();
-    }
+    
 
     public void OnStageClearEvent()
     {
@@ -100,7 +100,7 @@ public class MainUI : MonoBehaviour
 
     }
 
-    private void Initialize()
+    private void SetupElements()
     {
         YSlider.lowValue = -90f;
         YSlider.highValue = 90f;
@@ -173,7 +173,6 @@ public class MainUI : MonoBehaviour
 
         });
     }
-
     private void OnQuitButtonClick()
     {
 
@@ -186,8 +185,7 @@ public class MainUI : MonoBehaviour
 
     private void OnThrowButtonClick()
     {
-        gameManager.ThrowingStone(); 
-       // myProjectileLauncher.ThrowStone();
+        gameManager.ThrowingStone();        
         container.visible = false;
     }
     public void FlyingStone_OnMissionComplete()

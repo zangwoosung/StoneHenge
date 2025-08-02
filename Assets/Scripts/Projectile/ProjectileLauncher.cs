@@ -1,40 +1,38 @@
+using System;
 using UnityEngine;
 public class ProjectileLauncher : MonoBehaviour
 {
-    public Transform launchPoint;
-    public GameObject projectile;
-    public float launchSpeed = 10f;
-    public ProjectileSO projectileSO;
-    [Header("Trajectory Display")]
-    public LineRenderer lineRenderer;
-    public int linePoints = 175;
-    public float timeIntervalInPoints = 0.01f;
-    [SerializeField] CameraFollow cameraFollow;
+    public static event Action<Vector3> OnContactEvent;
+    [SerializeField] GameManager gameManager;
+    [SerializeField] GameObject projectilePrefab;
+    [SerializeField] Transform launchPoint;
+    [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] ProjectileSO projectileSO;
 
-    public bool isDrawing=true;
+    [Header("Trajectory Display")]
+    [SerializeField] float launchSpeed = 10f;
+    [SerializeField] int linePoints = 200;
+    [SerializeField] float timeIntervalInPoints = 0.01f;
+
+
+    public bool isDrawing = true;
 
     private void Start()
     {
         FlyingStone.OnMissionComplete += OnMissionComplete;
     }
+
     private void OnMissionComplete()
     {
-        lineRenderer.enabled = true;        
+        gameManager.Restore();       
+        lineRenderer.enabled = true;
     }
 
     void Update()
     {
+        if (!isDrawing) return;
         DrawTrajectory();
-      /*  if (lineRenderer != null)
-        {
-            if(isDrawing)
-            {
-                DrawTrajectory();
-                lineRenderer.enabled = true;
-            }
-            else
-                lineRenderer.enabled = false;
-        }*/      
+        CheckEndPoint();
     }
 
     public void ThrowStone()
@@ -44,12 +42,16 @@ public class ProjectileLauncher : MonoBehaviour
         rot.x = projectileSO.angleX;
         rot.y = projectileSO.angleY;
         rot.z = projectileSO.angleZ;
-        var _projectile = Instantiate(projectile, launchPoint.position, rot);
+        var _projectile = Instantiate(projectilePrefab, launchPoint.position, rot);
         _projectile.GetComponent<Rigidbody>().linearVelocity = projectileSO.speed * launchPoint.up;
         _projectile.GetComponent<Rigidbody>().mass = projectileSO.mass;
-        cameraFollow.SetTarget(_projectile.transform);
+        float spinForce = 1f;
+        _projectile.GetComponent<Rigidbody>().AddTorque(Vector3.up * spinForce, ForceMode.Impulse);
+        gameManager.SetTarget(_projectile.transform);
+        
+        
     }
- 
+
     void DrawTrajectory()
     {
         Vector3 origin = launchPoint.position;
@@ -59,13 +61,32 @@ public class ProjectileLauncher : MonoBehaviour
         float time = 0;
         for (int i = 0; i < linePoints; i++)
         {
-         
             var x = (startVelocity.x * time) + (Physics.gravity.x / 2 * time * time);
             var y = (startVelocity.y * time) + (Physics.gravity.y / 2 * time * time);
-            var z= (startVelocity.z * time) + (Physics.gravity.z / 2 * time * time);
+            var z = (startVelocity.z * time) + (Physics.gravity.z / 2 * time * time);
             Vector3 point = new Vector3(x, y, z);
             lineRenderer.SetPosition(i, origin + point);
             time += timeIntervalInPoints;
+        }
+    }
+
+    void CheckEndPoint()
+    {
+        LineRenderer lineRenderer = GetComponent<LineRenderer>();
+        int pointCount = lineRenderer.positionCount;
+
+        for (int i = pointCount-2; i < pointCount - 1; i++)
+        {
+            Vector3 start = lineRenderer.GetPosition(i);
+            Vector3 end = lineRenderer.GetPosition(i + 1);
+            Vector3 direction = (end - start).normalized;
+            float distance = Vector3.Distance(start, end);
+
+            RaycastHit hit;
+            if (Physics.Raycast(start, direction, out hit, distance))
+            {                               
+                OnContactEvent?.Invoke(hit.point);
+            }
         }
     }
 }

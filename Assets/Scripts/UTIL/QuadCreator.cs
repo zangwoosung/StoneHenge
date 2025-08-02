@@ -1,20 +1,15 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuadCreator : MonoBehaviour
 {
-    //과제: 스테이지 증가에 따라서 색상 바꾸기.
-    // 불필요한 코드 제거. 
-    // 그 밖에 효과 주기 예) 소리, 이펙, 알파 조정. 
-
-    [SerializeField] Transform container;
     [SerializeField] GameObject prefabToSpawn;
     [SerializeField] GameObject quad;
+    [SerializeField] Transform container;
 
     Vector3 position = Vector3.zero;  
     float width = 2f;
     float height = 2f;
-    private void OnEnable()
+    void OnEnable()
     {
         position = container.transform.position;
         position.y = 0.02f;
@@ -22,6 +17,7 @@ public class QuadCreator : MonoBehaviour
 
     public void Setup(float w, float h)
     {
+        this.position.x +=5;
         this.width = w;
         this.height = h;
     }
@@ -85,8 +81,8 @@ public class QuadCreator : MonoBehaviour
 
     }
 
-    public Vector3 GetArea()  // 메서드 명 바꾸기.  GetRandomPoint is better. 
-    {                       // local과 world 좌표계 이해 
+    public Vector3 GetRandomPoint()  
+    {                        
         Vector3 localPos = new Vector3(
            Random.Range(0f, width),
            Random.Range(0f, height),

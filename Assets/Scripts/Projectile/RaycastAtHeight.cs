@@ -1,10 +1,9 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class RaycastAtHeight : MonoBehaviour
 {
-    public event Action OnStoneHasFallenEvent;
+    public  event Action OnStoneHasFallenEvent;
     public static event Action OnNoStoneStandingEvent;
     public float maxDistance = 100f;
     public GameObject objectA;

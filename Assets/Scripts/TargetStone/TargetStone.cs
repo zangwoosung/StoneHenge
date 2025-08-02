@@ -15,9 +15,9 @@ public class TargetStone : MonoBehaviour
     public static event Action<Vector3> OnKnockDownToAnimalEvent;
     public static event Action<Transform, float>   OnHitDistanceEvent; // EffectManager
     public static event Action<Vector3> OnHitContactEvent;  // 
+    public static event Action  OnDisappearEvent;  // 
 
-    public TextMeshProUGUI label01;
-    public TextMeshProUGUI label02;
+   
 
     public StoneType stoneType;
     public Renderer objRenderer;
@@ -33,15 +33,17 @@ public class TargetStone : MonoBehaviour
     {
         RaycastAtHeight.OnNoStoneStandingEvent += OnNoStoneStandingEvent;
         meshCollider = GetComponent<MeshCollider>();
-        label01.text = "¿‹µπ";
-        label02.text = "100 mass";
+       
         Vector3 highestPoint = gameObject.GetComponent<Collider>().bounds.max;
       
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
+        Debug.Log("Ondestory");
+     
         RaycastAtHeight.OnNoStoneStandingEvent -= OnNoStoneStandingEvent;
     }
+   
 
     private void OnNoStoneStandingEvent()
     {
@@ -65,7 +67,7 @@ public class TargetStone : MonoBehaviour
             foreach (ContactPoint hitcontact in collision.contacts)
             {
                 VisualizeContact(hitcontact.point);
-                //Disappear?.Invoke(hitcontact.point);
+               
             }
 
             ContactPoint contact = collision.contacts[0];

@@ -1,48 +1,46 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target = null;      // Assign the projectile here
-    public Vector3 offset = new Vector3(0, 2, -5); // Adjust as needed
+    public Transform target = null;      
+    public Vector3 offset = new Vector3(1, 0, 0); 
     public float smoothSpeed = 5f;
     Vector3 originPos;
-    Quaternion rotation;
-
-    public bool isFollowTarget = false;
+    Quaternion rotation;   
     private void OnEnable()
     {
         originPos = transform.position;
-        rotation = transform.rotation;
+        rotation = transform.rotation;       
     }
+
+   
 
     public void SetTarget(Transform target)
     {
         this.target = target;
         smoothSpeed = 5f;
-        isFollowTarget = true;
+        transform.LookAt(target);       
     }
-    public void Restore()
-    {
-        transform.position= originPos;
-        transform.rotation= rotation;
-        isFollowTarget= false;
-    }
+   
 
+   
     void LateUpdate()
     {
-        if (!isFollowTarget) return;
+        if (target==null) return;
         Vector3 desiredPosition;
-        try
-        {
-            desiredPosition = target.position + offset;
-        }
-        catch (System.Exception)
-        {            
-            desiredPosition = originPos;
-            smoothSpeed = 10f;
-        }  
+        desiredPosition = target.position + offset;        
         transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-        transform.LookAt(target);
+        transform.LookAt (target);
+    }
+
+    public void Restore()
+    {
+        Debug.Log("Restore");
+        target = null;
+        transform.position = originPos;
+        transform.rotation = rotation;
     }
 }
 

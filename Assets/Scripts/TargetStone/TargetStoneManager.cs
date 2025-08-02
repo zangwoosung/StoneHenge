@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 public class TargetStoneManager : MonoBehaviour
@@ -9,37 +8,25 @@ public class TargetStoneManager : MonoBehaviour
     [SerializeField] QuadCreator quadCreator;
     [SerializeField] RaycastAtHeight raycastAtHeight;
     [SerializeField] int count = default(int);
-    [SerializeField] GameObject worldUIPrefab;
     Vector3 scale = new Vector3(1f, 1f, 1f);
     Vector3 pos;
     float newMass = 1;
-    int clearCount = 3;
-
-    TextMeshProUGUI label01;
-    TextMeshProUGUI label02;
+    int clearCount = 3;  
     public void OnReset()
     {
-
         count = 0;
     }
     private void Start()
     {
-        quadCreator.CreateQuad();
-        TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
         raycastAtHeight.OnStoneHasFallenEvent += RaycastAtHeight_OnStoneHasFallenEvent;
     }
 
     private void RaycastAtHeight_OnStoneHasFallenEvent()
     {
-        TargetStone_OnKnockDownEvent(StoneType.High);
-    }
-
-    private void TargetStone_OnKnockDownEvent(StoneType obj)
-    {
         count++;
         if (count == clearCount)
         {
-            count = 0;
+            
             ResetValue();
             OnStageClearEvent?.Invoke();
             return;
@@ -53,11 +40,17 @@ public class TargetStoneManager : MonoBehaviour
         CreateOneTargeStone();
     }
 
+    float ww = 4, hh = 4;
     public void CreateOneTargeStone()
     {
+        GameObject target = GameObject.FindGameObjectWithTag("Target");
+        if (target != null)
+            Destroy(target);
+
+        quadCreator.Setup(ww,hh);
         quadCreator.CreateQuad();
         //range 
-        pos = quadCreator.GetArea();
+        pos = quadCreator.GetRandomPoint();
         pos.y = 0.1f;
 
         //size
@@ -69,20 +62,16 @@ public class TargetStoneManager : MonoBehaviour
 
         var clone = Instantiate(stonePrefab, pos, Quaternion.identity);
         raycastAtHeight.Init(clone);
-
-
     
     }
-
     public void ResetValue()
-    {
+    {         
+        quadCreator.Setup(5f,5f);
+        count = 0;
         //size
-        scale = new Vector3(scale.x += 0.1f, scale.y += 0.3f, scale.z += 0.3f);
+        scale = new Vector3(scale.x += 0.1f, scale.y += 0.3f, scale.z += 0.3f);       
+        newMass += 1;   
 
-        //mass
-        newMass += 1;
-        quadCreator.CreateQuad();
-
-    }
+    }    
 
 }

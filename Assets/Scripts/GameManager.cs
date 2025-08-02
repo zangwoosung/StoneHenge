@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public enum ItemTag
@@ -16,6 +15,7 @@ public class GameManager : MonoBehaviour
     public RaycastDrawer rayCastDrawer;
     public ProjectileLauncher myProjectileLauncher;
     public MainUI mainUI;
+    public CameraFollow cameraFollow;
 
     private void OnEnable()
     {
@@ -27,8 +27,10 @@ public class GameManager : MonoBehaviour
     {
         targetStoneManager.OnStageClearEvent += OnStageClearEvent;
         rayCastDrawer.OnRayCastHitAnimalEvent += OnStageLostEvent;
+        myProjectileLauncher.isDrawing = true;
         targetStoneManager.CreateOneTargeStone();
         animalController.Initialize();
+        mainUI.Initialize();
     }
 
     private void OnDisable()
@@ -70,12 +72,19 @@ public class GameManager : MonoBehaviour
     {
         myProjectileLauncher.isDrawing = true;
     }
-
+    public void Restore()
+    {
+        cameraFollow.Restore();
+    }
+    public void SetTarget(Transform target)
+    {
+        cameraFollow.SetTarget(target);
+    }
     public  void ResumeGame()
     {
-        rayCastDrawer.isHasHit = false;
-        animalController.Initialize();
-        targetStoneManager.OnReset();   
-        targetStoneManager.CreateOneTargeStone();
+        //rayCastDrawer.isHasHit = false;
+        //animalController.Initialize();
+        //targetStoneManager.OnReset();   
+        //targetStoneManager.CreateOneTargeStone();
     }
 }

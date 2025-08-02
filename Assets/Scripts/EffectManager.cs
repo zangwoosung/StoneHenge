@@ -13,6 +13,12 @@ public class EffectManager : MonoBehaviour
     {
         TargetStone.OnHitDistanceEvent += OnHitDistanceEvent;
         TargetStone.OnHitContactEvent += OnHitContactEvent;
+        ProjectileLauncher.OnContactEvent += ProjectileLauncher_OnContactEvent;
+    }
+
+    private void ProjectileLauncher_OnContactEvent(Vector3 obj)
+    {
+        OnHitContactEvent(obj);
     }
 
     public  void OnHitContactEvent(Vector3 pos)
