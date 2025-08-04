@@ -9,11 +9,19 @@ public class CameraLookSequence : MonoBehaviour
     [SerializeField] WorldSpaceNameTag worldSpaceNameTag;
     [SerializeField] CameraFollow cameraFollow;
     [SerializeField] Transform[] targets;
+
+    //TODO 중요 
     CancellationTokenSource cts = new CancellationTokenSource();
+   
     Vector3 originPos;
     Quaternion rotation;
         
     bool isRunning = true;
+
+    private void Start()
+    {
+        Initialize();
+    }
     public void Initialize()
     {
         CancellationToken token = cts.Token;
@@ -88,6 +96,7 @@ public class CameraLookSequence : MonoBehaviour
         isRunning = false;
         cts.Cancel();       
     }
+    //TODO 중요. 반드시 제거 하기. 
     void OnDestroy()
     {       
         cts?.Cancel();

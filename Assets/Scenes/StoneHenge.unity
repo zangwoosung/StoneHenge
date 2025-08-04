@@ -6417,8 +6417,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c1b8ca92f89284790076c89d8d2c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 63999292}
-  projectilePrefab: {fileID: 5915990367520358097, guid: 351c2bc7959d8f843b71d77a1390373e, type: 3}
+  gameManager: {fileID: 0}
+  projectilePrefab: {fileID: 0}
   launchPoint: {fileID: 294831140}
   lineRenderer: {fileID: 930342505}
   projectileSO: {fileID: 11400000, guid: 7714020f1b4c9cf44b039565b8352531, type: 2}
@@ -10039,7 +10039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1735359886
 Transform:
   m_ObjectHideFlags: 0
@@ -10062,7 +10062,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735359885}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8a21af710ff0c8d4f985e9d34b5b8377, type: 3}
@@ -10159,7 +10159,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735359885}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9e0380d940588d4fb77ac13943f62bf, type: 3}
   m_Name: 
@@ -10866,7 +10866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 655421dee5052eb4aac61389e11e5d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldSpaceNameTag: {fileID: 0}
+  worldSpaceNameTag: {fileID: 773189946}
   cameraFollow: {fileID: 1823688469}
   targets:
   - {fileID: 612391968}

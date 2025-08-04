@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "com.gitamend.unityutils": "https://github.com/adammyhre/Unity-Utils.git",
-    "com.kyrylokuzyk.primetween": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
     "com.unity.collab-proxy": "2.8.2",
     "com.unity.entities": "1.3.14",
     "com.unity.entities.graphics": "1.3.2",
