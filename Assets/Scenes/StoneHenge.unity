@@ -7754,7 +7754,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.24692023
   m_Height: 0.79002
@@ -10866,7 +10866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 655421dee5052eb4aac61389e11e5d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameTag: {fileID: 773189946}
+  worldSpaceNameTag: {fileID: 0}
   cameraFollow: {fileID: 1823688469}
   targets:
   - {fileID: 612391968}

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CameraLookSequence : MonoBehaviour
 {
-    [SerializeField] WorldSpaceNameTag nameTag;
+    [SerializeField] WorldSpaceNameTag worldSpaceNameTag;
     [SerializeField] CameraFollow cameraFollow;
     [SerializeField] Transform[] targets;
     CancellationTokenSource cts = new CancellationTokenSource();
@@ -23,12 +23,15 @@ public class CameraLookSequence : MonoBehaviour
     }
 
 
+    void RemoveBillBoard()
+    {
 
+    }
     private void CreateBillBoard()
     {
         foreach (Transform target in targets)
         {
-            nameTag.CreateDisplay(target);
+            worldSpaceNameTag.CreateDisplay(target);
         }
     }
 
@@ -40,13 +43,10 @@ public class CameraLookSequence : MonoBehaviour
             {
                 try
                 {
-
                     token.ThrowIfCancellationRequested();
-
                 }
                 catch (Exception)
-                {
-                    Debug.Log("StartCameraSequence in catch");
+                {                    
                     cameraFollow.Restore();
                     break;
                 }
@@ -69,11 +69,10 @@ public class CameraLookSequence : MonoBehaviour
             try
             {
                 token.ThrowIfCancellationRequested();
-                Debug.Log("token LookAtTarget");
+               
             }
             catch (Exception)
             {
-                Debug.Log("LookAtTarget in catch");
                 cameraFollow.Restore();
                 break;
             }
@@ -87,12 +86,10 @@ public class CameraLookSequence : MonoBehaviour
     public void StopCameraWork()
     {
         isRunning = false;
-        cts.Cancel();
-        Debug.Log("cancel");
+        cts.Cancel();       
     }
     void OnDestroy()
-    {
-        // Cancel if the object is destroyed
+    {       
         cts?.Cancel();
         cts?.Dispose();
     }

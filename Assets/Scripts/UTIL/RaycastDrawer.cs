@@ -18,10 +18,12 @@ public class RaycastDrawer : MonoBehaviour
        
         if (Physics.Raycast(origin, direction, out RaycastHit hit, maxDistance))
         {
+
+            isHasHit = true;
+            Debug.Log("동물 감지");
             Debug.DrawLine(origin, hit.point, Color.red); 
             Destroy(hit.transform.gameObject);
             OnRayCastHitAnimalEvent?.Invoke();
-            isHasHit = true;
         }
         else
         {

@@ -26,18 +26,30 @@ public class MainUI : MonoBehaviour
       
     private void Awake()
     {
+        _document.rootVisualElement.visible = false;
         root = _document.rootVisualElement;
         root.styleSheets.Add(_styleSheet);
         root.Clear();
     }
     public void Initialize()
     {
+        _document.rootVisualElement.visible = true;
         GenerateUI();
         SetupElements();
         AddListener();
     }
+    private void OnValidate()
+    {
+        if(!Application.isPlaying) {
+           // GenerateUI();
+
+        }
+    }
     private void GenerateUI()
-    {      
+    {
+        root = _document.rootVisualElement;
+        root.styleSheets.Add(_styleSheet);
+        root.Clear();
         container = UTIL.Create<VisualElement>("container");
         drawBtn = UTIL.Create<Button>("button");
         throwBtn = UTIL.Create<Button>("button");

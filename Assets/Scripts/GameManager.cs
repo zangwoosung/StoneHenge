@@ -29,12 +29,7 @@ public class GameManager : MonoBehaviour
     {
 
         cameraLookSequence.Initialize();
-        //targetStoneManager.OnStageClearEvent += OnStageClearEvent;
-        //rayCastDrawer.OnRayCastHitAnimalEvent += OnStageLostEvent;
-        //myProjectileLauncher.isDrawing = true;
-        //targetStoneManager.CreateOneTargeStone();
-        //animalController.Initialize();
-        //mainUI.Initialize();
+       
     }
 
     private void OnDisable()
@@ -90,13 +85,19 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             cameraLookSequence.StopCameraWork();
+            targetStoneManager.OnStageClearEvent += OnStageClearEvent;
+            rayCastDrawer.OnRayCastHitAnimalEvent += OnStageLostEvent;
+            myProjectileLauncher.isDrawing = true;
+            targetStoneManager.CreateOneTargeStone();
+            animalController.Initialize();
+            mainUI.Initialize();
         }
     }
     public  void ResumeGame()
     {
-        //rayCastDrawer.isHasHit = false;
-        //animalController.Initialize();
-        //targetStoneManager.OnReset();   
-        //targetStoneManager.CreateOneTargeStone();
+        rayCastDrawer.isHasHit = false;
+        animalController.Initialize();
+        targetStoneManager.OnReset();
+        targetStoneManager.CreateOneTargeStone();
     }
 }
