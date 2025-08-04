@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum ItemTag
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     public ProjectileLauncher myProjectileLauncher;
     public MainUI mainUI;
     public CameraFollow cameraFollow;
+    public CameraLookSequence cameraLookSequence;   
 
     private void OnEnable()
     {
@@ -25,12 +27,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        targetStoneManager.OnStageClearEvent += OnStageClearEvent;
-        rayCastDrawer.OnRayCastHitAnimalEvent += OnStageLostEvent;
-        myProjectileLauncher.isDrawing = true;
-        targetStoneManager.CreateOneTargeStone();
-        animalController.Initialize();
-        mainUI.Initialize();
+
+        cameraLookSequence.Initialize();
+        //targetStoneManager.OnStageClearEvent += OnStageClearEvent;
+        //rayCastDrawer.OnRayCastHitAnimalEvent += OnStageLostEvent;
+        //myProjectileLauncher.isDrawing = true;
+        //targetStoneManager.CreateOneTargeStone();
+        //animalController.Initialize();
+        //mainUI.Initialize();
     }
 
     private void OnDisable()
@@ -79,6 +83,14 @@ public class GameManager : MonoBehaviour
     public void SetTarget(Transform target)
     {
         cameraFollow.SetTarget(target);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            cameraLookSequence.StopCameraWork();
+        }
     }
     public  void ResumeGame()
     {
