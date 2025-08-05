@@ -17,8 +17,7 @@ public class GameManager : MonoBehaviour
     public ProjectileLauncher myProjectileLauncher;
     public MainUI mainUI;
     public CameraFollow cameraFollow;
-    public CameraLookSequence cameraLookSequence;   
-
+   
     private void OnEnable()
     {
         TargetStone.OnKnockDownEvent += TargetStone_OnKnockDownEvent;
@@ -27,9 +26,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        targetStoneManager.OnStageClearEvent += OnStageClearEvent;
+        rayCastDrawer.OnRayCastHitAnimalEvent += OnStageLostEvent;
+        myProjectileLauncher.isDrawing = true;
+        targetStoneManager.CreateOneTargeStone();
+        animalController.Initialize();
+        mainUI.Initialize();
 
-        cameraLookSequence.Initialize();
-       
+
     }
 
     private void OnDisable()
@@ -84,13 +88,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            cameraLookSequence.StopCameraWork();
-            targetStoneManager.OnStageClearEvent += OnStageClearEvent;
-            rayCastDrawer.OnRayCastHitAnimalEvent += OnStageLostEvent;
-            myProjectileLauncher.isDrawing = true;
-            targetStoneManager.CreateOneTargeStone();
-            animalController.Initialize();
-            mainUI.Initialize();
+            
         }
     }
     public  void ResumeGame()

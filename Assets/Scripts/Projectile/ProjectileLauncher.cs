@@ -24,7 +24,7 @@ public class ProjectileLauncher : MonoBehaviour
 
     private void OnMissionComplete()
     {
-        gameManager.Restore();       
+        gameManager.Restore();
         lineRenderer.enabled = true;
     }
 
@@ -37,7 +37,7 @@ public class ProjectileLauncher : MonoBehaviour
 
     public void ThrowStone()
     {
-        lineRenderer.enabled = false;
+        //lineRenderer.enabled = false;
         Quaternion rot = launchPoint.rotation;
         rot.x = projectileSO.angleX;
         rot.y = projectileSO.angleY;
@@ -45,11 +45,11 @@ public class ProjectileLauncher : MonoBehaviour
         var _projectile = Instantiate(projectilePrefab, launchPoint.position, rot);
         _projectile.GetComponent<Rigidbody>().linearVelocity = projectileSO.speed * launchPoint.up;
         _projectile.GetComponent<Rigidbody>().mass = projectileSO.mass;
-        float spinForce = 1f;
+        float spinForce = 0.1f;
         _projectile.GetComponent<Rigidbody>().AddTorque(Vector3.up * spinForce, ForceMode.Impulse);
         gameManager.SetTarget(_projectile.transform);
-        
-        
+
+
     }
 
     void DrawTrajectory()
@@ -75,7 +75,7 @@ public class ProjectileLauncher : MonoBehaviour
         LineRenderer lineRenderer = GetComponent<LineRenderer>();
         int pointCount = lineRenderer.positionCount;
 
-        for (int i = pointCount-2; i < pointCount - 1; i++)
+        for (int i = pointCount - 2; i < pointCount - 1; i++)
         {
             Vector3 start = lineRenderer.GetPosition(i);
             Vector3 end = lineRenderer.GetPosition(i + 1);
@@ -84,7 +84,7 @@ public class ProjectileLauncher : MonoBehaviour
 
             RaycastHit hit;
             if (Physics.Raycast(start, direction, out hit, distance))
-            {                               
+            {
                 OnContactEvent?.Invoke(hit.point);
             }
         }

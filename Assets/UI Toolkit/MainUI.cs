@@ -13,6 +13,8 @@ public class MainUI : MonoBehaviour
   
 
     [SerializeField] Transform launchingPad;
+    [SerializeField] Transform cannon; //Y axis
+    [SerializeField] Transform gunBarrel; //Y axis
     [SerializeField] ProjectileSO projectileSO;
     [Header("Images")]
     [SerializeField] Sprite flyingStoneSprite;
@@ -22,7 +24,7 @@ public class MainUI : MonoBehaviour
     VisualElement root;
     VisualElement container;
     Button throwBtn, drawBtn,quitBtn;
-    Slider YSlider, ZSlider, speedSlider, massSlider;
+    Slider sliderBarrel, sliderCannon, speedSlider, massSlider;
       
     private void Awake()
     {
@@ -58,10 +60,10 @@ public class MainUI : MonoBehaviour
         drawBtn.text = "Draw";
         quitBtn.text = "Quit";
 
-        YSlider = UTIL.Create<Slider>("my-slider");
-        YSlider.label = $"Y angle";
-        ZSlider = UTIL.Create<Slider>("my-slider");
-        ZSlider.label = $"Z angle";
+        sliderBarrel = UTIL.Create<Slider>("my-slider");
+        sliderBarrel.label = $"Y angle";
+        sliderCannon = UTIL.Create<Slider>("my-slider");
+        sliderCannon.label = $"Z angle";
         massSlider = UTIL.Create<Slider>("my-slider");
         massSlider.label = $"Mass";
         speedSlider = UTIL.Create<Slider>("my-slider");
@@ -72,8 +74,8 @@ public class MainUI : MonoBehaviour
         buttonContainer.Add(drawBtn);
         buttonContainer.Add(quitBtn);
         container.Add(buttonContainer);
-        container.Add(YSlider);
-        container.Add(ZSlider);
+        container.Add(sliderBarrel);
+        container.Add(sliderCannon);
         container.Add(massSlider);
         container.Add(speedSlider);
         root.Add(container);
@@ -114,17 +116,19 @@ public class MainUI : MonoBehaviour
 
     private void SetupElements()
     {
-        YSlider.lowValue = -90f;
-        YSlider.highValue = 90f;
-        ZSlider.lowValue = -90f;
-        ZSlider.highValue = 90f;
+        sliderBarrel.lowValue = 45f-20f;
+        sliderBarrel.highValue = 45f+20f;
+
+        sliderCannon.lowValue = 180-90f;
+        sliderCannon.highValue =180+90f;
+
         speedSlider.lowValue = 0;
         speedSlider.highValue = 30;
 
-        Vector3 rotation = launchingPad.transform.eulerAngles;
+        Vector3 rotation = gunBarrel.transform.eulerAngles;
 
-        YSlider.value = rotation.y;
-        ZSlider.value = rotation.z;
+        sliderBarrel.value = 45f;
+        sliderCannon.value = 180f;
 
        
 
@@ -157,21 +161,16 @@ public class MainUI : MonoBehaviour
             drawBtn.style.backgroundColor = new StyleColor(Color.white);          
         });
 
-        YSlider.RegisterValueChangedCallback(evt =>
+        sliderBarrel.RegisterValueChangedCallback(evt =>
+        {          
+            gunBarrel.localRotation = Quaternion.Euler(0f, evt.newValue, 0f);
+         });
+       
+        sliderCannon.RegisterValueChangedCallback(evt =>
         {
-            Vector3 rotation = launchingPad.transform.eulerAngles;
-            projectileSO.angleY = evt.newValue;
-            YSlider.label = string.Concat(evt.newValue.ToString(), " Angle");
+            cannon.localRotation = Quaternion.Euler(0f, evt.newValue, 0f);            
+        });
 
-            launchingPad.transform.rotation = Quaternion.Euler(rotation.x, evt.newValue, rotation.z);
-        });
-        ZSlider.RegisterValueChangedCallback(evt =>
-        {
-            Vector3 rotation = launchingPad.transform.eulerAngles;
-            projectileSO.angleZ = evt.newValue;
-            ZSlider.label = string.Concat(evt.newValue.ToString(), " Angle");
-            launchingPad.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, evt.newValue);
-        });
         speedSlider.RegisterValueChangedCallback(evt =>
         {
             projectileSO.speed = evt.newValue;

@@ -3,11 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraLookSequence : MonoBehaviour
 {
     [SerializeField] WorldSpaceNameTag worldSpaceNameTag;
-    [SerializeField] CameraFollow cameraFollow;
+  //  [SerializeField] CameraFollow cameraFollow;
     [SerializeField] Transform[] targets;
 
     //TODO Áß¿ä 
@@ -55,7 +56,7 @@ public class CameraLookSequence : MonoBehaviour
                 }
                 catch (Exception)
                 {                    
-                    cameraFollow.Restore();
+                   // cameraFollow.Restore();
                     break;
                 }
                 await LookAtTarget(target, token);
@@ -81,7 +82,7 @@ public class CameraLookSequence : MonoBehaviour
             }
             catch (Exception)
             {
-                cameraFollow.Restore();
+               // cameraFollow.Restore();
                 break;
             }
             elapsed += Time.deltaTime;
@@ -101,6 +102,15 @@ public class CameraLookSequence : MonoBehaviour
     {       
         cts?.Cancel();
         cts?.Dispose();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            StopCameraWork();
+            SceneManager.LoadScene("StoneHenge");
+        }
     }
 }
 
