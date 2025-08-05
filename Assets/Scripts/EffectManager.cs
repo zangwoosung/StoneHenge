@@ -35,11 +35,6 @@ public class EffectManager : MonoBehaviour
     {
 
     }
-
-
-
-
-
     public void SpawnParticles(Vector3 position)
     {
         // Optional cleanup

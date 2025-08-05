@@ -8,6 +8,8 @@ public class ProjectileLauncher : MonoBehaviour
     [SerializeField] Transform launchPoint;
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] ProjectileSO projectileSO;
+    [SerializeField] CannonShake cannonShake;
+    [SerializeField] ParticleSystem firePS;
 
     [Header("Trajectory Display")]
     [SerializeField] float launchSpeed = 10f;
@@ -19,6 +21,7 @@ public class ProjectileLauncher : MonoBehaviour
 
     private void Start()
     {
+        firePS.Stop();
         FlyingStone.OnMissionComplete += OnMissionComplete;
     }
 
@@ -37,6 +40,8 @@ public class ProjectileLauncher : MonoBehaviour
 
     public void ThrowStone()
     {
+        cannonShake.Fire();
+        firePS.Play();  
         //lineRenderer.enabled = false;
         Quaternion rot = launchPoint.rotation;
         rot.x = projectileSO.angleX;

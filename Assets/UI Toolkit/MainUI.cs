@@ -125,7 +125,7 @@ public class MainUI : MonoBehaviour
         speedSlider.lowValue = 0;
         speedSlider.highValue = 30;
 
-        Vector3 rotation = gunBarrel.transform.eulerAngles;
+      
 
         sliderBarrel.value = 45f;
         sliderCannon.value = 180f;
