@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1019221780651660224}
   - component: {fileID: 3607434626635517786}
   - component: {fileID: 7433361700555787643}
+  - component: {fileID: 2770665041203593955}
   m_Layer: 6
   m_Name: SM_Rocks_08
   m_TagString: Target
@@ -31,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 8, y: 9, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -67,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0e339b4b9d0486544820c1d9852e62e0, type: 2}
+  - {fileID: 2100000, guid: c691269f541225f44a0d884d33580459, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -124,9 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stoneType: 0
-  objRenderer: {fileID: 5189654882045403701}
   offset: 30
-  isHit: 0
 --- !u!54 &7433361700555787643
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -135,7 +134,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1418860561918544383}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 30
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -154,3 +153,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2770665041203593955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418860561918544383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b59e875d4f76792499cd96953d438cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stoneType: 0
+  offset: 30

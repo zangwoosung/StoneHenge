@@ -94,8 +94,7 @@ public class GameManager : MonoBehaviour
     public  void ResumeGame()
     {
         rayCastDrawer.isHasHit = false;
-        animalController.Initialize();
-        targetStoneManager.OnReset();
+        animalController.Initialize();      
         targetStoneManager.CreateOneTargeStone();
     }
 }

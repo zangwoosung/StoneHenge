@@ -7,12 +7,13 @@ public class ProjectileLauncher : MonoBehaviour
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform launchPoint;
     [SerializeField] LineRenderer lineRenderer;
+
     [SerializeField] ProjectileSO projectileSO;
     [SerializeField] CannonShake cannonShake;
     [SerializeField] ParticleSystem firePS;
 
     [Header("Trajectory Display")]
-    [SerializeField] float launchSpeed = 10f;
+ //   [SerializeField] float launchSpeed = 10f;
     [SerializeField] int linePoints = 200;
     [SerializeField] float timeIntervalInPoints = 0.01f;
 
@@ -41,8 +42,9 @@ public class ProjectileLauncher : MonoBehaviour
     public void ThrowStone()
     {
         cannonShake.Fire();
-        firePS.Play();  
-        //lineRenderer.enabled = false;
+        firePS.Play();
+        SoundManager.Instance.PlaySFXByIndex(1);
+       
         Quaternion rot = launchPoint.rotation;
         rot.x = projectileSO.angleX;
         rot.y = projectileSO.angleY;
@@ -59,7 +61,7 @@ public class ProjectileLauncher : MonoBehaviour
 
     void DrawTrajectory()
     {
-        Vector3 origin = launchPoint.position;
+       Vector3 origin = launchPoint.position;
         Vector3 startVelocity = projectileSO.speed * launchPoint.up;
 
         lineRenderer.positionCount = linePoints;

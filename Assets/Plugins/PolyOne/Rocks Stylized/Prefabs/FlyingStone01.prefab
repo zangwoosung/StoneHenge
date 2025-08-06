@@ -110,7 +110,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7105557981267009923}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 700
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -164,6 +164,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stoneType: 0
-  objRenderer: {fileID: 472453840893106495}
   offset: 30
-  isHit: 0

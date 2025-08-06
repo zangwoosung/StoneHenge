@@ -12,12 +12,12 @@ public class QuadCreator : MonoBehaviour
     void OnEnable()
     {
         position = container.transform.position;
-        position.y = 0.02f;
+        position.y = 0.1f;
     }
 
     public void Setup(float w, float h)
     {
-        this.position.x +=5;
+        this.position.x +=2;
         this.width = w;
         this.height = h;
     }

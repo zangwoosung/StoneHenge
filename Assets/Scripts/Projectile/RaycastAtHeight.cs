@@ -56,7 +56,7 @@ public class RaycastAtHeight : MonoBehaviour
     private void Update()
     {
         Debug.DrawRay(SourcePos, objectA.transform.forward * maxDistance, statusColor);
-        if (!isLocked) return;
+        //if (!isLocked) return;
 
         int rayCount = 3;
         var (leftPoint, rightPoint) = GetEdgePoints();
@@ -71,7 +71,7 @@ public class RaycastAtHeight : MonoBehaviour
             {
                 statusColor = Color.green;
                 //Debug.Log($"Ray {i} hit: {hit.collider.name}");
-                lapTime = 0;
+               // lapTime = 0;
             }
             else
             {
