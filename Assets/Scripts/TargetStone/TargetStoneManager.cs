@@ -103,6 +103,7 @@ public class TargetStoneManager : MonoBehaviour
 
         var clone = Instantiate(stonePrefab, pos, Quaternion.identity);
         stoneIndex++;
+        if (stoneIndex >=5 ) stoneIndex = 0;
 
     }
     public void ResetValue()

@@ -15,21 +15,18 @@ public class TargetStone : MonoBehaviour
     public static event Action<Transform, float> OnHitDistanceEvent; // EffectManager
     public static event Action<Vector3> OnHitContactEvent;  // 
     public static event Action OnDisappearEvent;  // 
-
-    public StoneType stoneType;
-    public float offset = 30f;
-    float rayDistance = 0.5f;
-    float lapTime = 0;
+    public StoneType stoneType; 
+  
     Renderer objRenderer;
     MeshCollider meshCollider;
-    float fadeDuration = 2f;
     Color originalColor;
+    float lapTime = 0;
+    float fadeDuration = 2f;
     bool isHasFallen = false;
 
 
     private void OnEnable()
-    {
-        
+    {        
         meshCollider = GetComponent<MeshCollider>();
         objRenderer = GetComponent<Renderer>();
     }
@@ -45,8 +42,7 @@ public class TargetStone : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Stone"))
         {
-            OnHitByProjectile?.Invoke(transform, collision.transform);
-            isHasFallen = true;
+            OnHitByProjectile?.Invoke(transform, collision.transform);           
 
             foreach (ContactPoint hitcontact in collision.contacts)
             {
@@ -74,9 +70,6 @@ public class TargetStone : MonoBehaviour
         marker.GetComponent<Renderer>().material.color = Color.red;
         Destroy(marker, 2f);
     }
-
-
-
     IEnumerator FadeOutObject()
     {
         float elapsed = 0f;
@@ -94,31 +87,39 @@ public class TargetStone : MonoBehaviour
         OnKnockDownEvent?.Invoke(stoneType);
         Destroy(gameObject, 0.2f);
     }
-    
+    float rayDistance = 1.5f;
     void Update()
     {
         if (isHasFallen) return; 
 
         Vector3 origin = transform.position;
+        origin.y += 1;
         Vector3 direction = -transform.up;
-       
-        if (Physics.Raycast(origin, direction, out RaycastHit hit, rayDistance))
-        {           
-            //Debug.Log("Hit object: " + hit.collider.name);
-            //Debug.DrawRay(origin, direction * rayDistance, Color.green);
+        // Create a LayerMask that excludes layer 6
+        int layerToExclude = 6;
+        int layerMask = ~(1 << layerToExclude);
+
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, rayDistance, layerMask))
+        {
+           // Debug.Log("Hit object: " + hit.collider.name);
+            Debug.DrawRay(origin, direction * rayDistance, Color.green);
+            lapTime = 0;
+
         }
         else
         {
-            lapTime += Time.deltaTime;
-            if (lapTime > 1)
+            lapTime += Time.deltaTime;            
+            Debug.DrawRay(origin, direction * rayDistance, Color.red);
+            if (lapTime > 2)
             {
                 isHasFallen = true;
                 OnKnockDownToAnimalEvent?.Invoke(transform.position);
-                Debug.Log("It has fallen");
+               // Debug.Log("It has fallen");
                 Debug.DrawRay(origin, direction * rayDistance, Color.red);
-                StartCoroutine(FadeOutObject());                
+                StartCoroutine(FadeOutObject());
             }
         }
+        
     }
 
 }

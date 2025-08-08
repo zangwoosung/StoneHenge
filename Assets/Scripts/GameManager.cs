@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     {
         animalController.RunToPlayer();
         myProjectileLauncher.ThrowStone();
+        SoundManager.Instance.PlayingRunningSound();
     }
     public void DrawLine()
     {

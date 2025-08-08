@@ -11,9 +11,10 @@ public class ProjectileLauncher : MonoBehaviour
     [SerializeField] ProjectileSO projectileSO;
     [SerializeField] CannonShake cannonShake;
     [SerializeField] ParticleSystem firePS;
+    [SerializeField] GameObject[] projectilePrefabs;
 
     [Header("Trajectory Display")]
- //   [SerializeField] float launchSpeed = 10f;
+
     [SerializeField] int linePoints = 200;
     [SerializeField] float timeIntervalInPoints = 0.01f;
 
@@ -39,19 +40,39 @@ public class ProjectileLauncher : MonoBehaviour
         CheckEndPoint();
     }
 
+
+
+
+
+
     public void ThrowStone()
     {
         cannonShake.Fire();
         firePS.Play();
         SoundManager.Instance.PlaySFXByIndex(1);
-       
+
+
+        projectilePrefab= projectilePrefabs[UnityEngine.Random.Range(0, projectilePrefabs.Length)];
+
+        if (projectilePrefab.TryGetComponent(out FlyingStone fs))
+        {
+            Debug.Log("Found FlyingStone!");
+            // You can now use 'rb' directly
+        }
+        else
+        {
+            projectilePrefab.AddComponent<FlyingStone>();
+            Debug.Log("No FlyingStone found.");
+        }
+
+
         Quaternion rot = launchPoint.rotation;
         rot.x = projectileSO.angleX;
         rot.y = projectileSO.angleY;
         rot.z = projectileSO.angleZ;
         var _projectile = Instantiate(projectilePrefab, launchPoint.position, rot);
         _projectile.GetComponent<Rigidbody>().linearVelocity = projectileSO.speed * launchPoint.up;
-        _projectile.GetComponent<Rigidbody>().mass = projectileSO.mass;
+        _projectile.GetComponent<Rigidbody>().mass = 5;// projectileSO.mass;
         float spinForce = 0.1f;
         _projectile.GetComponent<Rigidbody>().AddTorque(Vector3.up * spinForce, ForceMode.Impulse);
         gameManager.SetTarget(_projectile.transform);
