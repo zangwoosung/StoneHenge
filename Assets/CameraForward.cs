@@ -14,13 +14,21 @@ public class CameraForward : MonoBehaviour
 
             //  Animation 추출
             // Tag로 한 번 더 필터링 하기.
-                        
 
-            Animator animator = hit.collider.gameObject.GetComponent<Animator>();
-            if (animator != null)
+            try
             {
-                animator.Play("RockUpAndDown");  // 여러분이 만든 애니메이션 클립 이름. 
+                Animator animator = hit.collider.gameObject.GetComponent<Animator>();
+                if (animator != null)
+                {
+                    animator.Play("RockUpAndDown");  // 여러분이 만든 애니메이션 클립 이름. 
+                }
             }
+            catch (System.Exception)
+            {
+
+                Debug.Log("애니메이션이 없음");
+            }
+          
 
 
         }
