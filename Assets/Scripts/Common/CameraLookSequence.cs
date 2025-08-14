@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class CameraLookSequence : MonoBehaviour
 {
     [SerializeField] WorldSpaceNameTag worldSpaceNameTag;
-  //  [SerializeField] CameraFollow cameraFollow;
+  
     [SerializeField] Transform[] targets;
 
     //TODO 중요 
@@ -97,6 +97,14 @@ public class CameraLookSequence : MonoBehaviour
         isRunning = false;
         cts.Cancel();       
     }
+    void OnApplicationQuit()
+    {
+        StopCameraWork();
+        // cts?.Dispose();
+        Debug.Log("Application is quitting or Play mode is stopping.");
+        // Your cleanup logic here
+    }
+
     //TODO 중요. 반드시 제거 하기. 
     void OnDestroy()
     {       
