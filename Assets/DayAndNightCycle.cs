@@ -1,64 +1,40 @@
-using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 
 public class DayAndNightCycle : MonoBehaviour
 {
-    public float currentTime = 0f; // Current time in the cycle
-    public float timeSpeed = 1f;
+    public Volume skyVolume;
+    public Light directionalLight; // Your Sun light
+    public float cycleDuration = 60f; // Seconds for full cycle
 
-    public Light sunLight; // Reference to the directional light representing the sun
-    public float sunPosition=1f;
-    public float sungIntencity;
+    private float time;
 
-    public AnimationCurve sunIntensityCurve; // Curve to control the intensity of the sun light over time;
-
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        UpdateLight();
-    }
-    private void OnValidate()
-    {
-       UpdateLight();
-    }
-    // Update is called once per frame
     void Update()
     {
-        currentTime += Time.deltaTime * timeSpeed;
+        time += Time.deltaTime;
+        float normalizedTime = (time % cycleDuration) / cycleDuration;
 
-        if (currentTime >= 24f)
+        // Simulate sky rotation (0 to 360 degrees)
+        float rotation = normalizedTime * 360f;
+
+        // Simulate exposure (brightest at noon, darkest at midnight)
+        float exposure = Mathf.Lerp(-2f, 2f, Mathf.Sin(normalizedTime * Mathf.PI * 2f) * 0.5f + 0.5f);
+
+        if (skyVolume.profile.TryGet<HDRISky>(out var hdriSky))
         {
-            currentTime = 0f; // Reset the cycle after 24 hours
+            hdriSky.rotation.overrideState = true;
+            hdriSky.exposure.overrideState = true;
+
+            hdriSky.rotation.value = rotation;
+            hdriSky.exposure.value = exposure;
+
+            HDRenderPipeline hdPipeline = RenderPipelineManager.currentPipeline as HDRenderPipeline;
+            hdPipeline?.RequestSkyEnvironmentUpdate();
         }
-        UpdateTimeText();
-        UpdateLight();
 
-    }
-
-    private void UpdateLight()
-    {
-        float sunrotation = (currentTime / 24f) * 360f; // Convert time to degrees (0-360)  
-        sunLight.transform.rotation = Quaternion.Euler(sunrotation - 90f, sunPosition, 0f); // Rotate the sun light      
-
-        float normalizedTime = currentTime / 24f; // Normalize time to a 0-1 range
-        float intensity = sunIntensityCurve.Evaluate(normalizedTime); // Evaluate the intensity curve
-        sunLight.intensity = intensity; // Set the light intensity
-        
-        
-        HDAdditionalLightData data = sunLight.GetComponent<HDAdditionalLightData>();
-
-        if(data != null)
-        {
-            sunLight.intensity = intensity * sungIntencity; // Set the light dimmer value
-        }
-       
-    }
-
-    private void UpdateTimeText()
-    {
-        Debug.Log($"Current Time: {currentTime:F2} hours"); 
+        // Optional: Animate directional light intensity and angle
+        directionalLight.transform.rotation = Quaternion.Euler(new Vector3((normalizedTime * 360f) - 90f, 0f, 0f));
+        directionalLight.intensity = Mathf.Clamp01(Mathf.Sin(normalizedTime * Mathf.PI * 2f)) * 1.5f;
     }
 }
