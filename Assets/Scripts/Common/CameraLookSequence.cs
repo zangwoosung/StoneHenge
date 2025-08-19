@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class CameraLookSequence : MonoBehaviour
 {
-    [SerializeField] WorldSpaceNameTag worldSpaceNameTag;
+    //[SerializeField] WorldSpaceNameTag worldSpaceNameTag;
   
     [SerializeField] Transform[] targets;
-
+  [SerializeField]  Vector3 offset = new Vector3(3, 5, -10);
     //TODO Áß¿ä 
     CancellationTokenSource cts = new CancellationTokenSource();
    
@@ -40,7 +40,7 @@ public class CameraLookSequence : MonoBehaviour
     {
         foreach (Transform target in targets)
         {
-            worldSpaceNameTag.CreateDisplay(target);
+            //worldSpaceNameTag.CreateDisplay(target);
         }
     }
 
@@ -70,7 +70,7 @@ public class CameraLookSequence : MonoBehaviour
         float elapsed = 0f;
         float duration = 1.5f;
         float smoothSpeed = 6;
-        Vector3 offset = new Vector3(0, 5, -10);
+      
         Vector3 targetCamPos = target.position + offset;
 
         while (elapsed < duration)
@@ -112,13 +112,11 @@ public class CameraLookSequence : MonoBehaviour
         cts?.Dispose();
     }
 
-    private void Update()
+    public void LoadGameScene()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            StopCameraWork();
-            SceneManager.LoadScene("StoneHenge");
-        }
+        StopCameraWork();
+        SceneManager.LoadScene("StoneHenge");
     }
+
 }
 

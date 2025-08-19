@@ -2550,7 +2550,7 @@ MonoBehaviour:
   launchPoint: {fileID: 860273820}
   lineRenderer: {fileID: 930342505}
   projectileSO: {fileID: 11400000, guid: 7714020f1b4c9cf44b039565b8352531, type: 2}
-  cannonShake: {fileID: 1118173287}
+  cannonShake: {fileID: 1954211542}
   firePS: {fileID: 148304400}
   projectilePrefabs:
   - {fileID: 1493958779012120596, guid: b9de24523a11d714db3851b5f0f9d527, type: 3}
@@ -3119,17 +3119,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2718850056258878557, guid: ff5e5650e47134b83bff5020453a7b57, type: 3}
   m_PrefabInstance: {fileID: 1778703393}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1118173287 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2809761583382376760, guid: ff5e5650e47134b83bff5020453a7b57, type: 3}
-  m_PrefabInstance: {fileID: 1778703393}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42832daf654f08546867f73d2336a309, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1134451848
 GameObject:
   m_ObjectHideFlags: 0
@@ -5046,7 +5035,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2718850056258878546, guid: ff5e5650e47134b83bff5020453a7b57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1954211542}
   m_SourcePrefab: {fileID: 100100000, guid: ff5e5650e47134b83bff5020453a7b57, type: 3}
 --- !u!1 &1814630126
 GameObject:
@@ -5680,6 +5672,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866603476}
   m_Mesh: {fileID: 4300008, guid: c9da341d2d3a64cf8b2adc9bba8ec9ec, type: 3}
+--- !u!1 &1954211539 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2718850056258878546, guid: ff5e5650e47134b83bff5020453a7b57, type: 3}
+  m_PrefabInstance: {fileID: 1778703393}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1954211542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954211539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15eb3c8276a7fb543b05675a54432ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeAmount: 0.1
+  shakeDuration: 0.1
 --- !u!1 &1965991583
 GameObject:
   m_ObjectHideFlags: 0

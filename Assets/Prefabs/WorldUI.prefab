@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4929199273302618693}
   - component: {fileID: 5833525775181371047}
   - component: {fileID: 391121508239966914}
-  - component: {fileID: 8389133868803235978}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -105,20 +104,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &8389133868803235978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 564649498065426121}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73635f60c7786554d830fb6d903104f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  label01: {fileID: 9019527442045235549}
-  label02: {fileID: 7348054869883914677}
 --- !u!1 &2269151487776748482
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +460,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2458403103184683003
 MonoBehaviour:
   m_ObjectHideFlags: 0
